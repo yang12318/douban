@@ -28,60 +28,119 @@
                 android:background="@drawable/douban"
                 android:scaleType="centerCrop"/>
         </FrameLayout>
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/username_layout"
             android:layout_width="fill_parent"
-            android:layout_below="@id/image_layout"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
-            android:gravity="center" >
-            <!-- android:inputType="number" -->
-            <EditText
+            android:gravity="center"
+            android:layout_below="@+id/image_layout" >
+
+            <TextView
                 android:id="@+id/username"
-                android:layout_below="@id/image_douban"
-                android:layout_width="fill_parent"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:padding="1dp"
+                android:text="邮箱"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/view_username"
+                android:layout_width="1dip"
                 android:layout_height="45dp"
-                android:layout_marginTop="5dp"
-                android:hint="请输入手机号/邮箱"
-                android:paddingLeft="55dp"
-                android:paddingRight="60dp" >
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toRightOf="@+id/username"
+                android:background="#EEEFFF" />
+
+            <EditText
+                android:id="@+id/username_input"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:ems="19"
+                android:layout_toRightOf="@+id/view_username"
+                android:background="@drawable/shape"
+                android:hint="请输入邮箱账号"
+                android:inputType="phone"
+                android:padding="1dp"
+                android:textSize="14sp" >
+
+                <requestFocus />
             </EditText>
+
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:id="@+id/name_delete"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/delete"
-                android:visibility="visible"
-                android:layout_marginLeft="10dp" />
-        </FrameLayout>
-        <FrameLayout
+                android:id="@+id/del_username"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/delete" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/password_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/username_layout"
             android:layout_marginTop="6dp"
-            android:gravity="center" >
-            <EditText
+            android:gravity="center"
+            android:layout_below="@+id/username_layout" >
+
+            <TextView
                 android:id="@+id/password"
-                android:layout_width="fill_parent"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:padding="1dp"
+                android:text="密码"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/view_password"
+                android:layout_width="1dip"
                 android:layout_height="45dp"
-                android:inputType="textPassword"
-                android:maxLength="18"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toRightOf="@+id/password"
+                android:background="#EEEFFF" />
+
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/view_password"
+                android:background="@drawable/shape"
+                android:ems="19"
                 android:hint="请输入六位以上密码"
-                android:paddingLeft="55dp"
-                android:paddingRight="60dp" >
+                android:inputType="phone"
+                android:padding="1dp"
+                android:textSize="14sp" >
+
+                <requestFocus />
             </EditText>
+
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginStart="10dp"
-                android:id="@+id/eye"
-                android:background="@drawable/eye_open"
-                android:layout_marginLeft="10dp" />
-        </FrameLayout>
+                android:id="@+id/del_password"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/delete" />
+        </RelativeLayout>
         <Button
             android:id="@+id/login"
             android:layout_width="fill_parent"
@@ -89,7 +148,7 @@
             android:layout_below="@id/password_layout"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:background="@drawable/shape"
+            android:background="@color/colorPrimary"
             android:text="登录"
             android:textColor="@android:color/white" />
 
@@ -118,12 +177,14 @@
             android:textSize="15sp" />
 
         <ImageButton
+            android:id="@+id/login_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:id="@+id/login_back"
+            android:layout_marginTop="16dp"
+            android:background="#00000000"
             android:src="@drawable/back" />
     </RelativeLayout>
 </RelativeLayout>
