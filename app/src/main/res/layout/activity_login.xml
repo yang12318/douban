@@ -65,6 +65,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
                 android:ems="19"
+                android:singleLine="true"
                 android:layout_toRightOf="@+id/view_username"
                 android:background="@drawable/shape"
                 android:hint="请输入邮箱账号"
@@ -121,13 +122,14 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/view_password"
+                android:inputType="textPassword"
+                android:singleLine="true"
                 android:background="@drawable/shape"
                 android:ems="19"
+                android:maxLength="18"
                 android:hint="请输入六位以上密码"
                 android:padding="1dp"
                 android:textSize="14sp" >
-
-                <requestFocus />
             </EditText>
 
             <ImageView
@@ -151,6 +153,7 @@
             android:textColor="@android:color/white" />
 
         <TextView
+            android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -160,7 +163,7 @@
             android:text="注册豆瓣"
             android:textColor="@android:color/black"
             android:textSize="15sp"
-            android:id="@+id/register_text" />
+             />
 
         <TextView
             android:layout_width="wrap_content"
@@ -170,7 +173,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="30dp"
             android:text="忘记密码"
-            android:id="@+id/forget_text"
+            android:id="@+id/tv_forget"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
