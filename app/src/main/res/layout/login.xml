@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true" >
 
     <RelativeLayout
-        android:id="@+id/login_layout"
+        android:id="@+id/rl_login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -15,7 +15,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:id="@+id/image_layout"
+            android:id="@+id/fl_image"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="55dp"
@@ -23,21 +23,21 @@
             <ImageView
                 android:layout_width="100sp"
                 android:layout_height="100sp"
-                android:id="@+id/image_douban"
+                android:id="@+id/iv_image_douban"
                 android:layout_gravity="center"
                 android:background="@drawable/douban"
                 android:scaleType="centerCrop"/>
         </FrameLayout>
         <RelativeLayout
-            android:id="@+id/username_layout"
+            android:id="@+id/rl_username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
             android:gravity="center"
-            android:layout_below="@+id/image_layout" >
+            android:layout_below="@+id/fl_image" >
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/tv_username"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -55,11 +55,11 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_toRightOf="@+id/username"
+                android:layout_toRightOf="@+id/tv_username"
                 android:background="#EEEFFF" />
 
             <EditText
-                android:id="@+id/username_input"
+                android:id="@+id/et_usernameInput"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -68,7 +68,6 @@
                 android:layout_toRightOf="@+id/view_username"
                 android:background="@drawable/shape"
                 android:hint="请输入邮箱账号"
-                android:inputType="phone"
                 android:padding="1dp"
                 android:textSize="14sp" >
 
@@ -76,7 +75,7 @@
             </EditText>
 
             <ImageView
-                android:id="@+id/del_username"
+                android:id="@+id/iv_delUsername"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
@@ -91,10 +90,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:gravity="center"
-            android:layout_below="@+id/username_layout" >
+            android:layout_below="@+id/rl_username" >
 
             <TextView
-                android:id="@+id/password"
+                android:id="@+id/tv_password"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -112,11 +111,11 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_toRightOf="@+id/password"
+                android:layout_toRightOf="@+id/tv_password"
                 android:background="#EEEFFF" />
 
             <EditText
-                android:id="@+id/password_input"
+                android:id="@+id/et_passwordInput"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -125,7 +124,6 @@
                 android:background="@drawable/shape"
                 android:ems="19"
                 android:hint="请输入六位以上密码"
-                android:inputType="phone"
                 android:padding="1dp"
                 android:textSize="14sp" >
 
@@ -133,7 +131,7 @@
             </EditText>
 
             <ImageView
-                android:id="@+id/del_password"
+                android:id="@+id/iv_delPassword"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
@@ -142,7 +140,7 @@
                 android:src="@drawable/delete" />
         </RelativeLayout>
         <Button
-            android:id="@+id/login"
+            android:id="@+id/btn_login"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_below="@id/password_layout"
@@ -156,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/login"
+            android:layout_below="@id/btn_login"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
             android:text="注册豆瓣"
@@ -168,7 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/login"
+            android:layout_below="@id/btn_login"
             android:layout_marginRight="10dp"
             android:layout_marginTop="30dp"
             android:text="忘记密码"
@@ -177,7 +175,7 @@
             android:textSize="15sp" />
 
         <ImageButton
-            android:id="@+id/login_back"
+            android:id="@+id/ib_login_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

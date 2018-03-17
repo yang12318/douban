@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true" >
 
     <RelativeLayout
-        android:id="@+id/register_layout"
+        android:id="@+id/rl_register"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -14,7 +14,7 @@
         android:gravity="center">
 
         <FrameLayout
-            android:id="@+id/image_layout"
+            android:id="@+id/fl_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/image_douban"
+                android:id="@+id/iv_image_douban"
                 android:layout_width="100sp"
                 android:layout_height="100sp"
                 android:layout_gravity="center"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
             android:gravity="center"
-            android:layout_below="@+id/image_layout" >
+            android:layout_below="@+id/fl_image" >
 
             <TextView
                 android:id="@+id/user"
@@ -61,7 +61,7 @@
                 android:background="#EEEFFF" />
 
             <EditText
-                android:id="@+id/user_input"
+                android:id="@+id/et_userInput"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -70,7 +70,6 @@
                 android:layout_toRightOf="@+id/view_user"
                 android:background="@drawable/shape"
                 android:hint="请输入邮箱账号"
-                android:inputType="phone"
                 android:padding="1dp"
                 android:textSize="14sp" >
 
@@ -78,7 +77,7 @@
             </EditText>
 
             <ImageView
-                android:id="@+id/del_user"
+                android:id="@+id/iv_delUser"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
@@ -88,7 +87,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/password_layout"
+            android:id="@+id/rl_password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -96,7 +95,7 @@
             android:layout_below="@+id/username_layout" >
 
             <TextView
-                android:id="@+id/pass"
+                android:id="@+id/tv_pass"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -114,11 +113,11 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_toRightOf="@+id/pass"
+                android:layout_toRightOf="@+id/tv_pass"
                 android:background="#EEEFFF" />
 
             <EditText
-                android:id="@+id/pass_input"
+                android:id="@+id/et_passInput"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -127,7 +126,6 @@
                 android:background="@drawable/shape"
                 android:ems="19"
                 android:hint="请输入六位以上密码"
-                android:inputType="phone"
                 android:padding="1dp"
                 android:textSize="14sp" >
 
@@ -135,7 +133,7 @@
             </EditText>
 
             <ImageView
-                android:id="@+id/del_pass"
+                android:id="@+id/iv_delPass"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
@@ -144,15 +142,15 @@
                 android:src="@drawable/delete" />
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/name_layout"
+            android:id="@+id/rl_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:gravity="center"
-            android:layout_below="@+id/password_layout" >
+            android:layout_below="@+id/rl_password" >
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/tv_name"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -170,11 +168,11 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_toRightOf="@+id/name"
+                android:layout_toRightOf="@+id/tv_name"
                 android:background="#EEEFFF" />
 
             <EditText
-                android:id="@+id/name_input"
+                android:id="@+id/et_nameInput"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -183,7 +181,6 @@
                 android:background="@drawable/shape"
                 android:ems="19"
                 android:hint="请输入昵称"
-                android:inputType="phone"
                 android:padding="1dp"
                 android:textSize="14sp" >
 
@@ -191,7 +188,7 @@
             </EditText>
 
             <ImageView
-                android:id="@+id/del_name"
+                android:id="@+id/iv_delName"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
@@ -200,10 +197,10 @@
                 android:src="@drawable/delete" />
         </RelativeLayout>
         <Button
-            android:id="@+id/register"
+            android:id="@+id/btn_register"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:layout_below="@id/name_layout"
+            android:layout_below="@id/rl_name"
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:background="@color/colorPrimary"
@@ -211,7 +208,7 @@
             android:textColor="@android:color/white" />
 
         <ImageButton
-            android:id="@+id/register_back"
+            android:id="@+id/ib_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
