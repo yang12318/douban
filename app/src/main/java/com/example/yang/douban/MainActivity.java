@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-/*public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btn_register, btn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         btn_register = (Button) findViewById(R.id.btn_register);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_register.setOnClickListener(this);
@@ -31,29 +31,4 @@ import android.widget.Button;
             startActivity(intent);
         }
     }
-}*/
-import android.support.v7.app.AppCompatActivity;
-
-import android.os.Bundle;
-
-
-
-public class MainActivity extends AppCompatActivity {
-
-
-
-    @Override
-
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_person);
-
-    }
-
-
-
-
-
 }
