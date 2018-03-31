@@ -12,6 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,8 +70,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 showToast("密码不合法，请检查后重新输入");
                 return;
             }
-            showToast("登录成功");
-            //向服务器发送信息
+            FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/login/");
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "email");
+            map.put("text", user);
+            map.put("pwd", password);
+            String response = flowerHttp.firstPost(map);
+            int result = 0;
+            try {
+                result = new JSONObject(response).getInt("rsNum");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(result == 0) {
+                showToast("未知错误");
+                return;
+            }
+            else if(result == -1) {
+                showToast("账号不存在");
+                return;
+            }
+            else if(result == -2) {
+                showToast("密码错误");
+                return;
+            }
+            else {
+                showToast("登录成功");
+            }
         }
         else if(v.getId() == R.id.tv_register) {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);

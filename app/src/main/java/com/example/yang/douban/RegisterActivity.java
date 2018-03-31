@@ -6,12 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -78,11 +84,48 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 showToast("您的昵称长度过长");
                 return;
             }
-            Intent intent = new Intent(RegisterActivity.this, Register2Activity.class);
+            /*FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/inter");
+            Map<String, Object> map = new HashMap<>();
+            String flag = flowerHttp.firstPost(map);
+            if(Integer.parseInt(flag) == 1) {
+                showToast("该邮箱号已被注册");
+                return;
+            }
+            flowerHttp.setUrl("http://118.25.40.220/api/registe/");*/
+            FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/registe/");
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "email");
+            map.put("text", user);
+            map.put("username", nickname);
+            map.put("pwd", password);
+            String response = flowerHttp.firstPost(map);
+            int result = -10;
+            try {
+                result = new JSONObject(response).getInt("rsNum");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(result == 0) {
+                showToast("昵称已存在");
+                return;
+            }
+            else if(result == -1) {
+                showToast("该邮箱已被注册");
+                return;
+            }
+            else if(result == -10){
+                showToast("发生未知错误");
+                return;
+            }
+            else {
+                showToast("注册成功");
+            }
+            /*Intent intent = new Intent(RegisterActivity.this, Register2Activity.class);
             intent.putExtra("user", user);
             intent.putExtra("password", password);
             intent.putExtra("nickname", nickname);
             startActivity(intent);
+            */
             //进入发送验证码页面
         }
         else if(v.getId() == R.id.iv_delUser) {

@@ -38,44 +38,42 @@
             android:gravity="center"
             android:layout_below="@+id/fl_image" >
 
+            <EditText
+                android:id="@+id/et_userInput"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/shape2"
+                android:ems="19"
+                android:gravity="center"
+                android:singleLine="true"
+                android:hint="请输入邮箱"
+                android:padding="1dp"
+                android:textSize="14sp" >
+            </EditText>
             <TextView
                 android:id="@+id/user"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:lines="1"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
                 android:padding="1dp"
+                android:textColor="#4682B4"
                 android:text="邮箱"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
             <View
                 android:id="@+id/view_user"
                 android:layout_width="1dip"
-                android:layout_height="45dp"
+                android:layout_height="30dp"
+                android:layout_toRightOf="@+id/user"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_toRightOf="@+id/user"
-                android:background="#EEEFFF" />
-
-            <EditText
-                android:id="@+id/et_userInput"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:singleLine="true"
-                android:ems="19"
-                android:layout_toRightOf="@+id/view_user"
-                android:background="@drawable/shape"
-                android:hint="请输入邮箱账号"
-                android:padding="1dp"
-                android:textSize="14sp" >
-
-                <requestFocus />
-            </EditText>
+                android:background="#808080" />
 
             <ImageView
                 android:id="@+id/iv_delUser"
@@ -95,44 +93,43 @@
             android:gravity="center"
             android:layout_below="@+id/username_layout" >
 
-            <TextView
-                android:id="@+id/tv_pass"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:lines="1"
-                android:padding="1dp"
-                android:text="密码"
-                android:textSize="14sp" />
-
-            <View
-                android:id="@+id/view_pass"
-                android:layout_width="1dip"
-                android:layout_height="45dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_toRightOf="@+id/tv_pass"
-                android:background="#EEEFFF" />
-
             <EditText
                 android:id="@+id/et_passInput"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/view_pass"
-                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/shape2"
                 android:ems="19"
-                android:maxLength="18"
-                android:singleLine="true"
                 android:inputType="textPassword"
+                android:gravity="center"
+                android:singleLine="true"
                 android:hint="请输入六位以上密码"
                 android:padding="1dp"
                 android:textSize="14sp" >
             </EditText>
+            <TextView
+                android:id="@+id/tv_pass"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
+                android:padding="1dp"
+                android:textColor="#4682B4"
+                android:text="密码"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/view_pass"
+                android:layout_width="1dip"
+                android:layout_height="30dp"
+                android:layout_toRightOf="@+id/tv_pass"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:background="#808080" />
 
             <ImageView
                 android:id="@+id/iv_delPass"
@@ -150,44 +147,42 @@
             android:layout_marginTop="6dp"
             android:gravity="center"
             android:layout_below="@+id/rl_password" >
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:lines="1"
-                android:padding="1dp"
-                android:text="昵称"
-                android:textSize="14sp" />
-
-            <View
-                android:id="@+id/view_name"
-                android:layout_width="1dip"
-                android:layout_height="45dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_toRightOf="@+id/tv_name"
-                android:background="#EEEFFF" />
-
             <EditText
                 android:id="@+id/et_nameInput"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/view_name"
-                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/shape2"
                 android:ems="19"
+                android:gravity="center"
                 android:singleLine="true"
                 android:hint="请输入昵称"
                 android:padding="1dp"
                 android:textSize="14sp" >
             </EditText>
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
+                android:padding="1dp"
+                android:textColor="#4682B4"
+                android:text="昵称"
+                android:textSize="15sp" />
 
+            <View
+                android:id="@+id/view_name"
+                android:layout_width="1dip"
+                android:layout_height="30dp"
+                android:layout_toRightOf="@+id/tv_name"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:background="#808080" />
             <ImageView
                 android:id="@+id/iv_delName"
                 android:layout_width="20dp"
@@ -204,9 +199,9 @@
             android:layout_below="@id/rl_name"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button_shape"
             android:text="下一步"
-            android:textColor="@android:color/white" />
+            android:textColor="#4682B4" />
 
         <ImageButton
             android:id="@+id/ib_back"
