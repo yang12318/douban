@@ -18,7 +18,7 @@ public class FlowerHttp {
         this.url = url;
     }
 
-    public String post(final Map<String, Object> map) {
+    public String firstPost(final Map<String, Object> map) {
         ExecutorService executorService = Executors.newCachedThreadPool();
         Callable<String> callable = new CallableThread2(url, map);
         Future future = executorService.submit(callable);
@@ -31,7 +31,7 @@ public class FlowerHttp {
         return "等待";
     }
 
-    public String get() {
+    public String firstGet() {
         ExecutorService executorService = Executors.newCachedThreadPool();
         Callable<String> callable = new CallableThread1(url);
         Future future = executorService.submit(callable);
@@ -44,8 +44,15 @@ public class FlowerHttp {
         return "等待";
     }
 
+    public String get() {
+        return "";
+    }
+
     public String getResponseData() {
         return responseData;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

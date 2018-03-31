@@ -50,7 +50,7 @@ public class CallableThread2 implements Callable<String> {
                 })
                 .build();
         Request request = new Request.Builder()
-                .url("http://118.25.40.220:8000/api/getCsrf")
+                .url("http://118.25.40.220/api/getCsrf")
                 .build();
         Response response = okHttpClient.newCall(request).execute();
         Headers headers = response.headers();
@@ -82,4 +82,3 @@ public class CallableThread2 implements Callable<String> {
         return responseData;
     }
 }
-
