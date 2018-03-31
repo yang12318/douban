@@ -38,31 +38,14 @@
             android:gravity="center"
             android:layout_below="@+id/fl_image" >
 
-            <EditText
-                android:id="@+id/et_userInput"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/shape2"
-                android:ems="19"
-                android:gravity="center"
-                android:singleLine="true"
-                android:hint="请输入邮箱"
-                android:padding="1dp"
-                android:textSize="14sp" >
-            </EditText>
             <TextView
                 android:id="@+id/user"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:lines="1"
-                android:layout_marginLeft="10dp"
-                android:layout_alignParentLeft="true"
                 android:padding="1dp"
-                android:textColor="#4682B4"
                 android:text="邮箱"
                 android:textSize="15sp" />
 
@@ -70,10 +53,27 @@
                 android:id="@+id/view_user"
                 android:layout_width="1dip"
                 android:layout_height="30dp"
-                android:layout_toRightOf="@+id/user"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
-                android:background="#808080" />
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toRightOf="@+id/user"
+                android:background="#C0C0C0" />
+
+            <EditText
+                android:id="@+id/et_userInput"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/view_user"
+                android:background="@drawable/shape"
+                android:ems="19"
+                android:hint="请输入邮箱"
+                android:padding="1dp"
+                android:textSize="15sp" >
+
+            </EditText>
 
             <ImageView
                 android:id="@+id/iv_delUser"
@@ -93,32 +93,14 @@
             android:gravity="center"
             android:layout_below="@+id/username_layout" >
 
-            <EditText
-                android:id="@+id/et_passInput"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/shape2"
-                android:ems="19"
-                android:inputType="textPassword"
-                android:gravity="center"
-                android:singleLine="true"
-                android:hint="请输入六位以上密码"
-                android:padding="1dp"
-                android:textSize="14sp" >
-            </EditText>
             <TextView
                 android:id="@+id/tv_pass"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:lines="1"
-                android:layout_marginLeft="10dp"
-                android:layout_alignParentLeft="true"
                 android:padding="1dp"
-                android:textColor="#4682B4"
                 android:text="密码"
                 android:textSize="15sp" />
 
@@ -126,10 +108,26 @@
                 android:id="@+id/view_pass"
                 android:layout_width="1dip"
                 android:layout_height="30dp"
-                android:layout_toRightOf="@+id/tv_pass"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
-                android:background="#808080" />
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toRightOf="@+id/tv_pass"
+                android:background="#C0C0C0" />
+
+            <EditText
+                android:id="@+id/et_passInput"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/view_pass"
+                android:background="@drawable/shape"
+                android:ems="19"
+                android:hint="请输入六位以上密码"
+                android:padding="1dp"
+                android:textSize="15sp" >
+            </EditText>
 
             <ImageView
                 android:id="@+id/iv_delPass"
@@ -147,31 +145,14 @@
             android:layout_marginTop="6dp"
             android:gravity="center"
             android:layout_below="@+id/rl_password" >
-            <EditText
-                android:id="@+id/et_nameInput"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/shape2"
-                android:ems="19"
-                android:gravity="center"
-                android:singleLine="true"
-                android:hint="请输入昵称"
-                android:padding="1dp"
-                android:textSize="14sp" >
-            </EditText>
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:lines="1"
-                android:layout_marginLeft="10dp"
-                android:layout_alignParentLeft="true"
                 android:padding="1dp"
-                android:textColor="#4682B4"
                 android:text="昵称"
                 android:textSize="15sp" />
 
@@ -179,10 +160,27 @@
                 android:id="@+id/view_name"
                 android:layout_width="1dip"
                 android:layout_height="30dp"
-                android:layout_toRightOf="@+id/tv_name"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
-                android:background="#808080" />
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toRightOf="@+id/tv_name"
+                android:background="#C0C0C0" />
+
+            <EditText
+                android:id="@+id/et_nameInput"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/view_name"
+                android:background="@drawable/shape"
+                android:ems="19"
+                android:hint="请输入昵称"
+                android:padding="1dp"
+                android:textSize="15sp" >
+
+            </EditText>
             <ImageView
                 android:id="@+id/iv_delName"
                 android:layout_width="20dp"
