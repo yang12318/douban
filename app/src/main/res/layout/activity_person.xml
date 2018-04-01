@@ -62,41 +62,41 @@
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="25dp" />
     <LinearLayout
-        android:id="@+id/ll_collect_article"
-        android:layout_width="match_parent"
+    android:id="@+id/ll_collect_article"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tab"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/tab"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/article"/>
+        android:background="@drawable/article"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="收藏文章" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:text="收藏文章" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="0"
-            android:text="文章列表" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="0"
+        android:text="文章列表" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="5dp"
-            android:contentDescription="@null"
-            android:src="@drawable/go" />
-    </LinearLayout>
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="5dp"
+        android:contentDescription="@null"
+        android:src="@drawable/go" />
+</LinearLayout>
     <include layout="@layout/line"/>
     <LinearLayout
         android:id="@+id/ll_collect_book"
@@ -133,7 +133,7 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="25dp" />
     <LinearLayout
         android:id="@+id/ll_book"
         android:layout_width="match_parent"
@@ -204,16 +204,8 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="35dp" />
 
-    <com.codbking.view.ItemView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:ItemView_text="地址"
-        app:ItemView_type="select"
-        app:ItemView_select_value="@array/addr" />
-
-    <include layout="@layout/line"/>
     <com.codbking.view.ItemView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -226,7 +218,7 @@
         android:layout_height="wrap_content"
         app:ItemView_text="关于"
         app:ItemView_type="activity"
-        app:ItemView_acname="com.com.example.yang.douban.AboutActivity"/>
+        app:ItemView_acname="com.example.yang.douban.AboutActivity"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="16dp" />
