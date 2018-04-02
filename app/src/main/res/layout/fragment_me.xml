@@ -213,12 +213,7 @@
         app:ItemView_type="switchbtn" />
 
     <include layout="@layout/line"/>
-    <!--<com.codbking.view.ItemView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:ItemView_text="关于"
-        app:ItemView_type="activity"
-        app:ItemView_acname="com.example.yang.douban.AboutActivity"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="16dp" />
@@ -226,5 +221,5 @@
         android:layout_width="match_parent"
         android:id="@+id/exit"
         android:layout_height="wrap_content"
-        android:text="退出登录"/> -->
+        android:text="退出登录"/>
 </LinearLayout>
