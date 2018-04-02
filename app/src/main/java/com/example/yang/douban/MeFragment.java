@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -21,11 +22,6 @@ public class MeFragment extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         mView = inflater.inflate(R.layout.fragment_me, container, false);
-
-        /*String desc = String.format("我是%s页面，来自%s",
-                "分类", getArguments().getString("tag"));
-        TextView tv_second = (TextView) mView.findViewById(R.id.tv_second);
-        tv_second.setText(desc);*/
 
         return mView;
     }

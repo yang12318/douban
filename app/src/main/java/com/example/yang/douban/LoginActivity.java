@@ -1,6 +1,7 @@
 package com.example.yang.douban;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,15 +13,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -75,10 +84,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             map.put("type", "email");
             map.put("text", user);
             map.put("pwd", password);
-            String response = flowerHttp.firstPost(map);
+            String s = flowerHttp.firstPost(map);
             int result = 0;
             try {
-                result = new JSONObject(response).getInt("rsNum");
+                result = new JSONObject(s).getInt("rsNum");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -96,6 +105,49 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             else {
                 showToast("登录成功");
+                SharedPreferences mShared;
+                mShared = getSharedPreferences("share", MODE_PRIVATE);
+                SharedPreferences.Editor editor = mShared.edit();
+                String sessionid = null;
+                String csrftoken = null;
+                String csrfmiddlewaretoken = null;
+                final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+                OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                        .cookieJar(new CookieJar() {
+                            @Override
+                            public void saveFromResponse(HttpUrl httpUrl, List<Cookie> list) {
+                                cookieStore.put(httpUrl.host(), list);
+                            }
+
+                            @Override
+                            public List<Cookie> loadForRequest(HttpUrl httpUrl) {
+                                List<Cookie> cookies = cookieStore.get(httpUrl.host());
+                                return cookies != null ? cookies : new ArrayList<Cookie>();
+                            }
+                        })
+                        .build();
+                Request request = new Request.Builder()
+                        .url("http://118.25.40.220/api/getCsrf")
+                        .build();
+                try {
+                    Response response = okHttpClient.newCall(request).execute();
+                    csrfmiddlewaretoken = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                List<Cookie> cookies1 = okHttpClient.cookieJar().loadForRequest(request.url());
+                for(Cookie cookie : cookies1){
+                    if(cookie.name().equals("sessionID")) {
+                        sessionid = cookie.value().toString();
+                    }
+                    else if(cookie.name().equals("csrftoken")) {
+                        csrftoken = cookie.value().toString();
+                    }
+                }
+                editor.putString("sessionID", sessionid);
+                editor.putString("csrftoken", csrftoken);
+                editor.putString("csrfmiddlewaretoken", csrfmiddlewaretoken);
+                editor.commit();
             }
         }
         else if(v.getId() == R.id.tv_register) {
