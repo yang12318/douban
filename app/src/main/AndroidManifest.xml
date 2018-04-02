@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yang.douban">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -21,7 +22,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".LoadActivity" />
         <activity android:name=".ForgetActivity" />
-        <activity android:name=".Register2Activity"></activity>
+        <activity android:name=".Register2Activity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>
