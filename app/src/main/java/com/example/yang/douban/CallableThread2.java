@@ -1,5 +1,7 @@
 package com.example.yang.douban;
 
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +18,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by youxihouzainali on 2018/3/25.
@@ -35,6 +39,8 @@ public class CallableThread2 implements Callable<String> {
     @Override
     public String call() throws Exception {
         final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+        String sessionid = null;
+        String csrftoken = null;
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .cookieJar(new CookieJar() {
                     @Override
@@ -68,6 +74,7 @@ public class CallableThread2 implements Callable<String> {
         }
         RequestBody requestBody = formBody.build();
         StringBuilder cookieStr = new StringBuilder();
+        StringBuilder cookieStr1 = new StringBuilder();
         List<Cookie> cookies1 = okHttpClient.cookieJar().loadForRequest(request.url());
         for(Cookie cookie : cookies1){
             cookieStr.append(cookie.name()).append("=").append(cookie.value()+";");
@@ -78,6 +85,30 @@ public class CallableThread2 implements Callable<String> {
                 .header("Cookie", cookieStr.toString())
                 .build();
         Response response2 = okHttpClient.newCall(request2).execute();
+        headers = response2.headers();
+        url1 = request2.url();
+        cookies = Cookie.parseAll(url1, headers);
+        if (cookies != null) {
+            okHttpClient.cookieJar().saveFromResponse(url1, cookies);
+        }
+        cookies1 = okHttpClient.cookieJar().loadForRequest(request2.url());
+        for(Cookie cookie : cookies1){
+            /*if(cookie.name().equals("csrftoken")) {
+                csrftoken = cookie.value();
+            }
+            else if(cookie.name().equals("sessionid")) {
+                sessionid = cookie.value();
+            }
+            */
+            cookieStr1.append(cookie.name()).append("=").append(cookie.value()+";");
+        }
+        SharedPreferences mShared;
+        mShared = MyApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+        SharedPreferences.Editor editor = mShared.edit();
+        editor.putString("Cookie", cookieStr1.toString());
+        //editor.putString("sessionid", sessionid);
+        editor.commit();
+
         String responseData = response2.body().string();
         return responseData;
     }

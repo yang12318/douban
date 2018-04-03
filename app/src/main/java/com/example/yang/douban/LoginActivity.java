@@ -91,62 +91,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if(result == 0) {
+            if (result == 0) {
                 showToast("未知错误");
                 return;
-            }
-            else if(result == -1) {
+            } else if (result == -1) {
                 showToast("账号不存在");
                 return;
-            }
-            else if(result == -2) {
+            } else if (result == -2) {
                 showToast("密码错误");
                 return;
-            }
-            else {
+            } else {
                 showToast("登录成功");
+                String cookie = null;
+                FlowerHttp flowerHttp1 = new FlowerHttp("http://118.25.40.220/api/getCsrf/");
+                String csrf = flowerHttp1.get();
                 SharedPreferences mShared;
-                mShared = getSharedPreferences("share", MODE_PRIVATE);
+                mShared = MyApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+                Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
+                for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
+                    String key = item_map.getKey();
+                    Object value = item_map.getValue();
+                    if(key.equals("Cookie")) {
+                        cookie = value.toString();
+                    }
+                }
                 SharedPreferences.Editor editor = mShared.edit();
-                String sessionid = null;
-                String csrftoken = null;
-                String csrfmiddlewaretoken = null;
-                final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-                OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                        .cookieJar(new CookieJar() {
-                            @Override
-                            public void saveFromResponse(HttpUrl httpUrl, List<Cookie> list) {
-                                cookieStore.put(httpUrl.host(), list);
-                            }
-
-                            @Override
-                            public List<Cookie> loadForRequest(HttpUrl httpUrl) {
-                                List<Cookie> cookies = cookieStore.get(httpUrl.host());
-                                return cookies != null ? cookies : new ArrayList<Cookie>();
-                            }
-                        })
-                        .build();
-                Request request = new Request.Builder()
-                        .url("http://118.25.40.220/api/getCsrf")
-                        .build();
-                try {
-                    Response response = okHttpClient.newCall(request).execute();
-                    csrfmiddlewaretoken = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                List<Cookie> cookies1 = okHttpClient.cookieJar().loadForRequest(request.url());
-                for(Cookie cookie : cookies1){
-                    if(cookie.name().equals("sessionID")) {
-                        sessionid = cookie.value().toString();
-                    }
-                    else if(cookie.name().equals("csrftoken")) {
-                        csrftoken = cookie.value().toString();
-                    }
-                }
-                editor.putString("sessionID", sessionid);
-                editor.putString("csrftoken", csrftoken);
-                editor.putString("csrfmiddlewaretoken", csrfmiddlewaretoken);
+                editor.putString("csrfmiddlewaretoken", csrf);
+                editor.putString("Cookie", cookie);
                 editor.commit();
             }
         }

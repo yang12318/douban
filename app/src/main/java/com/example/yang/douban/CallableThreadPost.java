@@ -39,17 +39,16 @@ public class CallableThreadPost implements Callable<String> {
         SharedPreferences mShared;
         mShared = MyApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
         String csrfmiddlewaretoken = null;
-        String csrftoken = null;
-        String sessionID = null;
+        String cookie = null;
         Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
         for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
             String key = item_map.getKey();
             Object value = item_map.getValue();
-            if(key.equals("csrftoken")) {
-                csrftoken = value.toString();
+            if(key.equals("Cookie")) {
+                cookie = value.toString();
             }
-            else if(key.equals("sessionId")) {
-                sessionID = value.toString();
+            else if(key.equals("csrfmiddlewaretoken")) {
+                csrfmiddlewaretoken = value.toString();
             }
         }
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -63,8 +62,7 @@ public class CallableThreadPost implements Callable<String> {
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
-                .header("csrftoken", csrftoken)
-                .header("sessionID", sessionID)
+                .header("Cookie", cookie)
                 .build();
         Response response = okHttpClient.newCall(request).execute();
         String responseData = response.body().string();

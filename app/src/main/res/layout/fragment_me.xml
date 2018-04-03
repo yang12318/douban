@@ -206,11 +206,11 @@
         android:layout_width="match_parent"
         android:layout_height="35dp" />
 
-    <com.codbking.view.ItemView
+    <!--<com.codbking.view.ItemView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:ItemView_text="检测更新"
-        app:ItemView_type="switchbtn" />
+        app:ItemView_type="switchbtn" />-->
 
     <include layout="@layout/line"/>
 
