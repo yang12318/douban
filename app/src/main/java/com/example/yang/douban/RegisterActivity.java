@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 return;
             }
             flowerHttp.setUrl("http://118.25.40.220/api/registe/");*/
-            FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/registe/");
+            FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/toRegiste/");
             Map<String, Object> map = new HashMap<>();
             map.put("type", "email");
             map.put("text", user);

@@ -63,10 +63,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/login/");
             Map<String, Object> map = new HashMap<>();
             map.put("type", "email");
-            map.put("text", "20001@qq.com");
-            map.put("pwd", "password");
+            map.put("text", "10086@qq.com");
+            map.put("pwd", "123456");
             String s = flowerHttp.firstPost(map);
-            int result = 0;
+            int result = 10;
             try {
                 result = new JSONObject(s).getInt("rsNum");
             } catch (JSONException e) {
@@ -81,7 +81,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } else if (result == -2) {
                 showToast("密码错误");
                 return;
-            } else {
+            } else if(result == 10) {
+                showToast("未返回数据");
+                return;
+            }else {
                 showToast("登录成功");
                 String cookie = null;
                 FlowerHttp flowerHttp1 = new FlowerHttp("http://118.25.40.220/api/getCsrf/");
