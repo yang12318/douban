@@ -44,8 +44,30 @@ public class FlowerHttp {
         return "等待";
     }
 
+    public String post(final Map<String, Object> map) {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Callable<String> callable = new CallableThreadPost(url, map);
+        Future future = executorService.submit(callable);
+        try {
+            responseData = future.get().toString();
+            return responseData;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "等待";
+    }
+
     public String get() {
-        return "";
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Callable<String> callable = new CallableThreadGet(url);
+        Future future = executorService.submit(callable);
+        try {
+            responseData = future.get().toString();
+            return responseData;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "等待";
     }
 
     public String getResponseData() {

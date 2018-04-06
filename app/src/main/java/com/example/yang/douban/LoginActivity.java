@@ -1,6 +1,7 @@
 package com.example.yang.douban;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,15 +13,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -51,51 +60,48 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_login) {
-            String user = et_user.getText().toString();
-            String password = et_password.getText().toString();
-            if (user.length() <= 0 || user == null) {
-                showToast("未填写手机号或邮箱");
-                return;
-            }
-            if(!isEmail(user) || user.length() > 50) {
-                showToast("邮箱格式非法，请检查");
-                return;
-            }
-            //检查手机号、邮箱格式
-            if (password.length() <= 0 || password == null) {
-                showToast("未填写密码");
-                return;
-            }
-            if(password.length() <6 || password.length() > 18) {
-                showToast("密码不合法，请检查后重新输入");
-                return;
-            }
             FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/login/");
             Map<String, Object> map = new HashMap<>();
             map.put("type", "email");
-            map.put("text", user);
-            map.put("pwd", password);
-            String response = flowerHttp.firstPost(map);
+            map.put("text", "20001@qq.com");
+            map.put("pwd", "password");
+            String s = flowerHttp.firstPost(map);
             int result = 0;
             try {
-                result = new JSONObject(response).getInt("rsNum");
+                result = new JSONObject(s).getInt("rsNum");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if(result == 0) {
+            if (result == 0) {
                 showToast("未知错误");
                 return;
-            }
-            else if(result == -1) {
+            } else if (result == -1) {
                 showToast("账号不存在");
                 return;
-            }
-            else if(result == -2) {
+            } else if (result == -2) {
                 showToast("密码错误");
                 return;
-            }
-            else {
+            } else {
                 showToast("登录成功");
+                String cookie = null;
+                FlowerHttp flowerHttp1 = new FlowerHttp("http://118.25.40.220/api/getCsrf/");
+                String csrf = flowerHttp1.get();
+                SharedPreferences mShared;
+                mShared = MyApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+                Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
+                for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
+                    String key = item_map.getKey();
+                    Object value = item_map.getValue();
+                    if(key.equals("Cookie")) {
+                        cookie = value.toString();
+                    }
+                }
+                SharedPreferences.Editor editor = mShared.edit();
+                editor.putString("csrfmiddlewaretoken", csrf);
+                editor.putString("Cookie", cookie);
+                editor.commit();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         }
         else if(v.getId() == R.id.tv_register) {

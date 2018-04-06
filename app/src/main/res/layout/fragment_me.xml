@@ -64,39 +64,39 @@
         android:layout_width="match_parent"
         android:layout_height="25dp" />
     <LinearLayout
-    android:id="@+id/ll_collect_article"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/tab"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="10dp">
-    <ImageView
-        android:layout_width="wrap_content"
+        android:id="@+id/ll_collect_article"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/article"/>
+        android:background="@drawable/tab"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/article"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:text="收藏文章" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="收藏文章" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_weight="0"
-        android:text="文章列表" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="0"
+            android:text="文章列表" />
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_margin="5dp"
-        android:contentDescription="@null"
-        android:src="@drawable/go" />
-</LinearLayout>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@null"
+            android:src="@drawable/go" />
+    </LinearLayout>
     <include layout="@layout/line"/>
     <LinearLayout
         android:id="@+id/ll_collect_book"
@@ -123,42 +123,6 @@
             android:layout_margin="5dp"
             android:layout_weight="0"
             android:text="图书列表" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="5dp"
-            android:contentDescription="@null"
-            android:src="@drawable/go" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="25dp" />
-    <LinearLayout
-        android:id="@+id/ll_book"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tab"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/book2"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="我的书评" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="0"
-            android:text="书评列表" />
 
         <ImageView
             android:layout_width="20dp"
@@ -202,23 +166,86 @@
             android:contentDescription="@null"
             android:src="@drawable/go" />
     </LinearLayout>
+    <include layout="@layout/line"/>
+    <LinearLayout
+        android:id="@+id/ll_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/book2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="我的书评" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="0"
+            android:text="书评列表" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@null"
+            android:src="@drawable/go" />
+    </LinearLayout>
+    <include layout="@layout/line"/>
+    <LinearLayout
+        android:id="@+id/ll_good"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/good"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="我的点赞" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="0"
+            android:text="图书列表" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@null"
+            android:src="@drawable/go" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="35dp" />
 
-    <com.codbking.view.ItemView
+    <!--<com.codbking.view.ItemView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:ItemView_text="检测更新"
-        app:ItemView_type="switchbtn" />
+        app:ItemView_type="switchbtn" />-->
 
     <include layout="@layout/line"/>
-    <com.codbking.view.ItemView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:ItemView_text="关于"
-        app:ItemView_type="activity"
-        app:ItemView_acname="com.example.yang.douban.AboutActivity"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="16dp" />

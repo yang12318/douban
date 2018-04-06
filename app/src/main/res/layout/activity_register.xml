@@ -200,7 +200,7 @@
             android:gravity="center"
             android:background="@drawable/button_shape"
             android:text="下一步"
-            android:textColor="#4682B4" />
+            android:textColor="#ffffff" />
 
     </RelativeLayout>
 

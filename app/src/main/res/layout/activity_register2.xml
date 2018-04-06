@@ -46,7 +46,7 @@
             android:layout_marginRight="16dp"
             android:layout_alignParentRight="true"
             android:padding="1dp"
-            android:textColor="#4682B4"
+            android:textColor="#89d4dd"
             android:text="获取验证码"
             android:textSize="15sp" />
 
@@ -92,7 +92,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="用户协议及隐私条款"
-            android:textColor="#4682B4"
+            android:textColor="#89d4dd"
             android:textSize="16sp" />
     </LinearLayout>
     <View
@@ -110,7 +110,7 @@
         android:gravity="center"
         android:text="完成"
         android:background="@drawable/button_shape"
-        android:textColor="#4682B4"
+        android:textColor="#ffffff"
         android:textSize="15sp" />
 
 </LinearLayout>
