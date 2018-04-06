@@ -5,22 +5,22 @@ package com.example.yang.douban.Bean;
  */
 
 public class Book {
-    private String id;
+    private int id;
     private String name;
     private String author;
     private String image;
-    private String introduction;
+    private String text;
     private String publisher;
     private int click_num;
     private int good_num;
 
-    public Book(String id, String name, String author, String image, String introduction,
+    public Book(int id, String name, String author, String image, String text,
                 String publisher, int good_num, int click_num) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.image = image;
-        this.introduction = introduction;
+        this.text = text;
         this.publisher = publisher;
         this.good_num = good_num;
         this.click_num = click_num;
@@ -30,7 +30,7 @@ public class Book {
 
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -46,8 +46,8 @@ public class Book {
         return image;
     }
 
-    public String getIntroduction() {
-        return introduction;
+    public String getText() {
+        return text;
     }
 
     public String getPublisher() {
@@ -62,6 +62,10 @@ public class Book {
         return good_num;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -74,16 +78,12 @@ public class Book {
         this.image = image;
     }
 
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
-    }
-
-    public void setClick_num(int click_num) {
-        this.click_num = click_num;
     }
 
     public void setGood_num(int good_num) {

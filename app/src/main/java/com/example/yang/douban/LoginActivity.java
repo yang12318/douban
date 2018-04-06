@@ -60,30 +60,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_login) {
-            String user = et_user.getText().toString();
-            String password = et_password.getText().toString();
-            if (user.length() <= 0 || user == null) {
-                showToast("未填写手机号或邮箱");
-                return;
-            }
-            if(!isEmail(user) || user.length() > 50) {
-                showToast("邮箱格式非法，请检查");
-                return;
-            }
-            //检查手机号、邮箱格式
-            if (password.length() <= 0 || password == null) {
-                showToast("未填写密码");
-                return;
-            }
-            if(password.length() <6 || password.length() > 18) {
-                showToast("密码不合法，请检查后重新输入");
-                return;
-            }
             FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/login/");
             Map<String, Object> map = new HashMap<>();
             map.put("type", "email");
-            map.put("text", user);
-            map.put("pwd", password);
+            map.put("text", "20001@qq.com");
+            map.put("pwd", "password");
             String s = flowerHttp.firstPost(map);
             int result = 0;
             try {
@@ -119,6 +100,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.putString("csrfmiddlewaretoken", csrf);
                 editor.putString("Cookie", cookie);
                 editor.commit();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         }
         else if(v.getId() == R.id.tv_register) {

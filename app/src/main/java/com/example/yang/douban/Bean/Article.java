@@ -10,11 +10,11 @@ public class Article {
     private String title;
     private String author;
     private String pub_time;
-    private String click_num;
+    private int click_num;
     private String text;
-    private String good_num;
+    private int good_num;
 
-    public Article(int id, int authorId, String title, String pub_time, String click_num, String text, String good_num) {
+    public Article(int id, int authorId, String title, String pub_time, int click_num, String text, int good_num) {
         this.title = title;
         this.id = id;
         this.authorId = authorId;
@@ -60,11 +60,11 @@ public class Article {
         this.pub_time = pub_time;
     }
 
-    public String getClick_num() {
+    public int getClick_num() {
         return click_num;
     }
 
-    public void setClick_num(String click_num) {
+    public void setClick_num(int click_num) {
         this.click_num = click_num;
     }
 
@@ -76,11 +76,11 @@ public class Article {
         this.text = text;
     }
 
-    public String getGood_num() {
+    public int getGood_num() {
         return good_num;
     }
 
-    public void setGood_num(String good_num) {
+    public void setGood_num(int good_num) {
         this.good_num = good_num;
     }
 

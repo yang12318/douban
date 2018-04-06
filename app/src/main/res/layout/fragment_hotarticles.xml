@@ -6,12 +6,13 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <TextView
-        android:id="@+id/tv_first"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_hotarticles"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom|center"
-        android:textColor="#000000"
-        android:textSize="17sp" />
+        android:fadingEdge="none"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
