@@ -115,6 +115,7 @@
             android:text="更改生日" />
 
         <TextView
+            android:id="@+id/tv_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -150,6 +151,7 @@
             android:text="修改地址" />
 
         <TextView
+            android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -163,4 +165,15 @@
             android:contentDescription="@null"
             android:src="@drawable/go" />
     </LinearLayout>
+
+    <!-- 以下是我加入的内容，id不要改，其他随意 -->
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>

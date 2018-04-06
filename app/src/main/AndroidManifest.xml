@@ -24,7 +24,11 @@
         <activity android:name=".ForgetActivity" />
         <activity android:name=".Register2Activity" />
         <activity android:name=".AboutActivity" />
-        <activity android:name=".APITestActivity"></activity>
+        <activity android:name=".APITestActivity" />
+        <activity android:name=".ReviseActivity" />
+        <activity android:name=".ChangeCodeActivity" />
+        <activity android:name=".BookDetailActivity" />
+        <activity android:name=".ArticleDetailActivity"></activity>
     </application>
 
 </manifest>
