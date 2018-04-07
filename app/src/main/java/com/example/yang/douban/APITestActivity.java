@@ -73,7 +73,7 @@ public class APITestActivity extends AppCompatActivity {
                     FlowerHttp flowerHttp1 = new FlowerHttp("http://118.25.40.220/api/getCsrf/");
                     String csrf = flowerHttp1.get();
                     SharedPreferences mShared;
-                    mShared = MyApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+                    mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
                     Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
                     for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
                         String key = item_map.getKey();

@@ -132,7 +132,7 @@
             android:src="@drawable/go" />
     </LinearLayout>
     <include layout="@layout/line"/>
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/ll_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
             android:layout_margin="5dp"
             android:contentDescription="@null"
             android:src="@drawable/go" />
-    </LinearLayout>
+    </LinearLayout> -->
     <include layout="@layout/line"/>
     <LinearLayout
         android:id="@+id/ll_book"

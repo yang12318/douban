@@ -56,7 +56,7 @@ public class CallableThread2 implements Callable<String> {
                 })
                 .build();
         Request request = new Request.Builder()
-                .url("http://118.25.40.220/api/getCsrf")
+                .url("http://118.25.40.220/api/getCsrf/")
                 .build();
         Response response = okHttpClient.newCall(request).execute();
         Headers headers = response.headers();
@@ -103,7 +103,7 @@ public class CallableThread2 implements Callable<String> {
             cookieStr1.append(cookie.name()).append("=").append(cookie.value()+";");
         }
         SharedPreferences mShared;
-        mShared = MyApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+        mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
         SharedPreferences.Editor editor = mShared.edit();
         editor.putString("Cookie", cookieStr1.toString());
         //editor.putString("sessionid", sessionid);

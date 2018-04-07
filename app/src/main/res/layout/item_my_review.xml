@@ -8,19 +8,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="4dp">
-
+        android:layout_margin="2dp"
+        app:cardCornerRadius="2dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/myGoodBooks_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop" />
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -29,22 +22,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/myGoodBooks_title"
-                    android:textSize="20sp"
-                    android:layout_marginTop="10dp"/>
+                    android:id="@+id/myReview_bookName"
+                    android:textSize="18sp"
+                    android:layout_marginTop="8dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/myGoodBooks_author"
+                    android:id="@+id/myReview_text"
                     android:textSize="14sp"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>
-            <Button
-                android:id="@+id/btn_cancel"
+            <TextView
+                android:id="@+id/myReview_pubTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="取消点赞"
                 />
+            <Button
+                android:id="@+id/btn_review_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="删除"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

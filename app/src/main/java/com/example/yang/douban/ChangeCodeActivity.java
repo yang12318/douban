@@ -1,6 +1,8 @@
 package com.example.yang.douban;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -62,11 +64,14 @@ public class ChangeCodeActivity extends AppCompatActivity {
                     showToast("未知错误");
                     return;
                 } else if (result == -1) {
-                    showToast("密码错误");
+                    showToast("原密码错误");
                     return;
                 } else if(result == 1){
-                    showToast("修改成功");
-                    Intent intent = new Intent(ChangeCodeActivity.this, ReviseActivity.class);
+                    showToast("密码修改成功，请重新登录");
+                    SharedPreferences sharedPreferences;
+                    sharedPreferences = getSharedPreferences("share", Context.MODE_PRIVATE);
+                    sharedPreferences.edit().clear().commit();
+                    Intent intent = new Intent(ChangeCodeActivity.this, RegisterActivity.class);
                     startActivity(intent);
                 }
             }

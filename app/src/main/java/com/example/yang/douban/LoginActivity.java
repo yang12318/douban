@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Map<String, Object> map = new HashMap<>();
             map.put("type", "email");
             map.put("text", "10086@qq.com");
-            map.put("pwd", "123456");
+            map.put("pwd", "123456789");
             String s = flowerHttp.firstPost(map);
             int result = 10;
             try {
@@ -86,11 +86,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return;
             }else {
                 showToast("登录成功");
+                MainApplication application = MainApplication.getInstance();
+                application.mInfoMap.put("id", result);
                 String cookie = null;
                 FlowerHttp flowerHttp1 = new FlowerHttp("http://118.25.40.220/api/getCsrf/");
                 String csrf = flowerHttp1.get();
                 SharedPreferences mShared;
-                mShared = MyApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+                mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
                 Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
                 for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
                     String key = item_map.getKey();
@@ -102,6 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 SharedPreferences.Editor editor = mShared.edit();
                 editor.putString("csrfmiddlewaretoken", csrf);
                 editor.putString("Cookie", cookie);
+                editor.putInt("id", result);
                 editor.commit();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
