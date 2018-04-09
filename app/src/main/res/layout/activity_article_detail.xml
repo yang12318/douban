@@ -1,9 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.yang.douban.ArticleDetailActivity">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_article_detail"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/tab">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="文章详情"
+                    android:layout_marginTop="18dp"
+                    android:textColor="#696969"
+                    android:textSize="20sp" />
+
+                <ImageButton
+                    android:id="@+id/iv_articke_good"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="right"
+                    android:background="#00000000"
+                    android:src="@drawable/like1" />
+            </android.support.v7.widget.Toolbar>
+
+            <ImageButton
+                android:id="@+id/ib_article_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="15dp"
+                android:background="#00000000"
+                android:src="@drawable/back" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar_article_detail"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_articletitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:text="标题"
+                    android:layout_marginLeft="12dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_articleauthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="4dp"
+                    android:text="作者"
+                    />
+                <TextView
+                    android:id="@+id/tv_articletime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发表时间"
+                    android:ellipsize="end"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12sp"
+                    />
+                <WebView
+                    android:id="@+id/wv_article"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="4dp"
+                    tools:ignore="WebViewLayout">
+                </WebView>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

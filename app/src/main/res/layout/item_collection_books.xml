@@ -8,16 +8,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="4dp">
-
+        android:layout_margin="2dp"
+        app:cardCornerRadius="2dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/myGoodBooks_image"
+                android:id="@+id/collcetionBooks_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop" />
@@ -29,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/myGoodBooks_title"
+                    android:id="@+id/collctionBooks_title"
                     android:textSize="18sp"
                     android:text="标题"
                     android:textStyle="bold"
@@ -38,7 +37,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/myGoodBooks_author"
+                    android:id="@+id/collectionBooks_author"
                     android:textSize="13sp"
                     android:text="作者"
                     android:layout_marginLeft="10dp"
@@ -53,10 +52,10 @@
                     android:maxLines="3"/>
             </LinearLayout>
             <ImageButton
-                android:id="@+id/btn_cancel"
+                android:id="@+id/collection_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/like2"
+                android:src="@drawable/star2"
                 android:layout_margin="8dp"
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"

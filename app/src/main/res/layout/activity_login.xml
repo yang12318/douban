@@ -18,7 +18,7 @@
             android:id="@+id/fl_image"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="70dp"
             android:gravity="center">
             <ImageView
                 android:layout_width="100sp"
@@ -177,10 +177,7 @@
         android:id="@+id/ib_login_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:background="#00000000"
         android:src="@drawable/back" />
 </RelativeLayout>
