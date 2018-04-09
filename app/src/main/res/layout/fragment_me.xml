@@ -16,7 +16,7 @@
             android:layout_height="140dp"
             android:background="@drawable/headerback"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/iv_image_head"
             android:layout_width="80dp"
             android:layout_height="80dp"

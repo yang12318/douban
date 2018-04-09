@@ -61,6 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="点赞数"
+                    android:layout_marginBottom="5dp"
                     android:textSize="10sp"
                     />
             </LinearLayout>

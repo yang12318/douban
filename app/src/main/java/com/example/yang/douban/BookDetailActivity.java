@@ -30,9 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
-
 public class BookDetailActivity extends AppCompatActivity {
 
     int bookId = 0;
@@ -84,9 +81,6 @@ public class BookDetailActivity extends AppCompatActivity {
         tv_summary.setText(text);
         tv_bookconcern.setText(publisher);
         tv_bookauthor.setText(author);
-        /*Glide.with(this).load(src)
-                .bitmapTransform(new BlurTransformation(this, 25), new CenterCrop(this))
-                .into(iv_book_back);*/
         Glide.with(this).load(src).into(iv_book_head);
         if(collected == 1) {
             Glide.with(this).load(R.drawable.star2).into(iv_star);

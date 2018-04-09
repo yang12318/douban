@@ -32,7 +32,7 @@
                     android:textSize="20sp" />
 
                 <ImageButton
-                    android:id="@+id/iv_articke_good"
+                    android:id="@+id/iv_article_good"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_margin="5dp"
@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="发表时间"
                     android:ellipsize="end"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="2dp"
                     android:textSize="12sp"
@@ -93,7 +94,6 @@
                     tools:ignore="WebViewLayout">
                 </WebView>
             </LinearLayout>
-
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

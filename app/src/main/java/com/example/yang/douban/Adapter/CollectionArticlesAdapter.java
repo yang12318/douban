@@ -26,6 +26,6 @@ public class CollectionArticlesAdapter extends BaseQuickAdapter<Article, BaseVie
         helper.setText(R.id.collectionArticles_Text, item.getAuthor());
         helper.setText(R.id.collectionArticles_Click_Num, item.getClick_num() + "点击");
         helper.setText(R.id.collectionArticles_Good_Num, item.getGood_num() + "赞同");
-        helper.addOnClickListener(R.id.cancel_star);
+        helper.addOnClickListener(R.id.ib_article_collection_delete);
     }
 }
