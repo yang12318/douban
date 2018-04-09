@@ -52,6 +52,7 @@
                     android:layout_marginLeft="10dp"
                     android:maxLines="3"/>
             </LinearLayout>
+<<<<<<< HEAD
             <ImageButton
                 android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
@@ -61,6 +62,13 @@
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
                 android:background="@null"
+=======
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消点赞"
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                 />
         </LinearLayout>
     </android.support.v7.widget.CardView>

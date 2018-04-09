@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <RelativeLayout
+=======
+<LinearLayout
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +15,11 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+<<<<<<< HEAD
         <RelativeLayout
+=======
+        <LinearLayout
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -21,12 +29,26 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="#89d4dd">
 
+<<<<<<< HEAD
+=======
+                <ImageButton
+                    android:id="@+id/ib_book_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:background="#00000000"
+                    android:src="@drawable/back" />
+
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="图书详情"
+<<<<<<< HEAD
                     android:layout_marginTop="18dp"
+=======
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                     android:textColor="#696969"
                     android:textSize="20sp" />
 
@@ -36,7 +58,10 @@
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
                     android:layout_gravity="right"
+<<<<<<< HEAD
                     android:background="@null"
+=======
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                     android:src="@drawable/like1" />
                 <ImageButton
                     android:id="@+id/iv_star"
@@ -44,6 +69,7 @@
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
                     android:layout_gravity="right"
+<<<<<<< HEAD
                     android:background="@null"
                     android:src="@drawable/star1" />
             </android.support.v7.widget.Toolbar>
@@ -60,12 +86,22 @@
                 android:layout_width="match_parent"
                 android:id="@+id/rl_head"
                 android:layout_below="@+id/toolbar_book"
+=======
+                    android:src="@drawable/star1" />
+            </android.support.v7.widget.Toolbar>
+            <RelativeLayout
+                android:layout_width="match_parent"
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/iv_book_back"
                     android:layout_width="match_parent"
+<<<<<<< HEAD
                     android:layout_height="230dp"
+=======
+                    android:layout_height="240dp"
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                     android:background="#89d4dd"/>
 
                 <ImageView
@@ -75,11 +111,18 @@
                     android:background="@drawable/header"
                     android:layout_centerVertical="true"
                     android:layout_centerInParent="true" />
+<<<<<<< HEAD
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/ll_bookdetail"
                 android:layout_below="@+id/rl_head"
+=======
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
@@ -88,17 +131,24 @@
                     android:layout_height="wrap_content"
                     android:textSize="25sp"
                     android:text="书名"
+<<<<<<< HEAD
                     android:layout_marginLeft="14dp"
                     android:textStyle="bold"
                     android:layout_marginTop="12dp"
+=======
+                    android:layout_marginTop="10dp"
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                     />
                 <TextView
                     android:id="@+id/tv_bookauthor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
+<<<<<<< HEAD
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="14dp"
+=======
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                     android:text="作者"
                     />
                 <TextView
@@ -106,6 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="出版社"
+<<<<<<< HEAD
                     android:layout_marginLeft="14dp"
                     android:layout_marginTop="3dp"
                     android:ellipsize="end"
@@ -118,25 +169,44 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="15dp"
                     android:background="@color/line"/>
+=======
+                    android:ellipsize="end"
+                    android:textSize="14sp"
+                    />
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                 <TextView
                     android:id="@+id/tv_summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+<<<<<<< HEAD
                     android:text="简介"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="14dp"
+=======
+                    android:maxLines="5"
+                    android:text="简介"
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                     android:ellipsize="end"
                     android:textSize="14sp"
                     />
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_book_review"
+<<<<<<< HEAD
                 android:layout_margin="5dp"
                 android:layout_below="@+id/ll_bookdetail"
+=======
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             </android.support.v7.widget.RecyclerView>
+<<<<<<< HEAD
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
+=======
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+>>>>>>> 3004105d273d2be2bab5bfb5b9ad139d3eb782b6

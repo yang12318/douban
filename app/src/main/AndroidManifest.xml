@@ -4,8 +4,9 @@
     package="com.example.yang.douban">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <application android:name=".MyApplication"
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,7 +29,12 @@
         <activity android:name=".ReviseActivity" />
         <activity android:name=".ChangeCodeActivity" />
         <activity android:name=".BookDetailActivity" />
-        <activity android:name=".ArticleDetailActivity"></activity>
+        <activity android:name=".ArticleDetailActivity" />
+        <activity android:name=".MyGoodBookActivity" />
+        <activity android:name=".MyOwnArticleActivity" />
+        <activity android:name=".BookCollectionActivity" />
+        <activity android:name=".ArticleCollectionActivity" />
+        <activity android:name=".MyReviewActivity"></activity>
     </application>
 
 </manifest>

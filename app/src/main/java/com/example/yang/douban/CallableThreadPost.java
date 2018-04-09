@@ -37,7 +37,7 @@ public class CallableThreadPost implements Callable<String> {
     @Override
     public String call() throws Exception {
         SharedPreferences mShared;
-        mShared = MyApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+        mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
         String csrfmiddlewaretoken = null;
         String cookie = null;
         Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
