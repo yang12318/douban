@@ -32,14 +32,14 @@
                     android:textSize="20sp" />
 
                 <ImageButton
-                    android:id="@+id/iv_article_good"
+                    android:id="@+id/ib_article_star"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_margin="5dp"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="right"
                     android:background="#00000000"
-                    android:src="@drawable/like1" />
+                    android:src="@drawable/star1" />
             </android.support.v7.widget.Toolbar>
 
             <ImageButton
@@ -85,14 +85,21 @@
                     android:layout_marginTop="2dp"
                     android:textSize="12sp"
                     />
-                <WebView
+                <!--<WebView
                     android:id="@+id/wv_article"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:layout_marginTop="4dp"
                     tools:ignore="WebViewLayout">
-                </WebView>
+                    </WebView>-->
+                <TextView
+                    android:id="@+id/wv_article"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="4dp"
+                    />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

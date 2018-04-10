@@ -23,6 +23,7 @@ public class MyGoodBookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Book item) {
         helper.setText(R.id.myGoodBooks_title, item.getName());
         helper.setText(R.id.myGoodBooks_author, item.getAuthor());
+        helper.setText(R.id.myGoodBooks_text, item.getText());
         helper.addOnClickListener(R.id.ib_cancel);
         Glide.with(mContext).load(item.getImage()).into((ImageView) helper.getView(R.id.myGoodBooks_image));
     }
