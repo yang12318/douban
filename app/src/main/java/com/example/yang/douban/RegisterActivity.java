@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btn_next;
+    private ImageButton ib_back;
     private EditText et_username, et_password, et_nickname;
     private ImageView iv_username, iv_password, iv_nickname;
     @Override
@@ -39,10 +41,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         iv_username = (ImageView) findViewById(R.id.iv_delUser) ;
         iv_nickname = (ImageView) findViewById(R.id.iv_delName);
         iv_password = (ImageView) findViewById(R.id.iv_delPass);
+        ib_back = (ImageButton) findViewById(R.id.ib_back);
         btn_next.setOnClickListener(this);
         iv_password.setOnClickListener(this);
         iv_nickname.setOnClickListener(this);
         iv_username.setOnClickListener(this);
+        ib_back.setOnClickListener(this);
 
     }
 
@@ -136,6 +140,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         else if(v.getId() == R.id.iv_delName) {
             et_nickname.setText(null);
+        }
+        else if(v.getId() == R.id.ib_back) {
+            finish();
         }
     }
 

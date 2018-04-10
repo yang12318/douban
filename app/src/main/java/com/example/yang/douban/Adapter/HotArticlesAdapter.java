@@ -23,7 +23,8 @@ public class HotArticlesAdapter extends BaseQuickAdapter<Article, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, Article item) {
         helper.setText(R.id.hotArticles_Title, item.getTitle());
-        helper.setText(R.id.hotArticles_Text, item.getAuthor());
+        helper.setText(R.id.hotArticles_Text, item.getText());
+        helper.setText(R.id.hotArticles_Author, item.getAuthor());
         helper.setText(R.id.hotArticles_Click_Num, item.getClick_num() + "点击");
         helper.setText(R.id.hotArticles_Good_Num, item.getGood_num() + "赞同");
     }

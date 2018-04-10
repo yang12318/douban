@@ -78,9 +78,9 @@ public class BookDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         tv_bookname.setText(name);
-        tv_summary.setText(text);
-        tv_bookconcern.setText(publisher);
-        tv_bookauthor.setText(author);
+        tv_summary.setText("简介："+"\n"+text);
+        tv_bookconcern.setText("出版社："+publisher);
+        tv_bookauthor.setText("作者："+author);
         Glide.with(this).load(src).into(iv_book_head);
         if(collected == 1) {
             Glide.with(this).load(R.drawable.star2).into(iv_star);

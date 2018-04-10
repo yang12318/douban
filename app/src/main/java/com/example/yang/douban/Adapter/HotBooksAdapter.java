@@ -23,6 +23,7 @@ public class HotBooksAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Book item) {
         helper.setText(R.id.hotBooks_title, item.getName());
         helper.setText(R.id.hotBooks_author, item.getAuthor());
+        helper.setText(R.id.hotBooks_text, item.getText());
         Glide.with(mContext).load(item.getImage()).into((ImageView) helper.getView(R.id.hotBooks_image));
     }
 }

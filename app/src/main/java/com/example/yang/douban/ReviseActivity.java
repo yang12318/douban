@@ -5,10 +5,12 @@ import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -18,11 +20,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.DatePicker;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +41,18 @@ import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.FormBody;
+import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import static android.os.Build.TYPE;
 
 public class ReviseActivity extends AppCompatActivity {
 
@@ -42,6 +60,7 @@ public class ReviseActivity extends AppCompatActivity {
     private LinearLayout ll_revise_head, ll_revise_pass, ll_revise_birth, ll_revise_location;
     private LinearLayout ll_revise_gender;
     private ImageView iv_head;
+    private ImageButton ib_back;
     private String imagepath = null;
     private TextView tv_birth, tv_location, tv_email, tv_gender;
     @Override
@@ -58,6 +77,13 @@ public class ReviseActivity extends AppCompatActivity {
         tv_email = (TextView) findViewById(R.id.tv_email);
         tv_gender = (TextView) findViewById(R.id.tv_gender);
         iv_head = (ImageView) findViewById(R.id.iv_head);
+        ib_back = (ImageButton) findViewById(R.id.ib_revise_back);
+        ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getInfo/");
         Map<String, Object> map = new HashMap<>();
         String response = flowerHttp.post(map);
@@ -111,7 +137,6 @@ public class ReviseActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                         if(result == 1) {
                             showToast("修改成功");
                         }
@@ -157,6 +182,72 @@ public class ReviseActivity extends AppCompatActivity {
                             String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 } else {
                     openAlbum();
+                }
+                String name = imagepath.substring(imagepath.lastIndexOf("/") + 1, imagepath.length());
+                File file = new File(Environment.getExternalStorageDirectory(), name);
+                if (!file.exists()) {
+                    showToast("文件不存在");
+                }
+                else {
+                    SharedPreferences mShared;
+                    mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+                    String csrfmiddlewaretoken = null;
+                    String cookie = null;
+                    Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
+                    for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
+                        String key = item_map.getKey();
+                        Object value = item_map.getValue();
+                        if(key.equals("Cookie")) {
+                            cookie = value.toString();
+                        }
+                        else if(key.equals("csrfmiddlewaretoken")) {
+                            csrfmiddlewaretoken = value.toString();
+                        }
+                    }
+                    MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                    if (file != null) {
+                        // MediaType.parse() 里面是上传的文件类型。
+                        RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
+                        String filename = file.getName();
+                        // 参数分别为， 请求key ，文件名称 ， RequestBody
+                        requestBody.addFormDataPart("image", filename, body);
+                    }
+                    requestBody.addFormDataPart("csrfmiddlewaretoken",csrfmiddlewaretoken);
+                    Request request = new Request.Builder()
+                            .url("http://118.25.40.220/api/changeHeadImage/")
+                            .header("Cookie", cookie)
+                            .post(requestBody.build()).build();
+                    // readTimeout("请求超时时间" , 时间单位);
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    Response response = null;
+                    String responseData = null;
+                    try {
+                        response = okHttpClient.newBuilder().readTimeout(5000, TimeUnit.MILLISECONDS).build().newCall(request).execute();
+                        responseData = response.body().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    int result = 10;
+                    try {
+                        result = new JSONObject(responseData).getInt("rsNum");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if(result == 1) {
+                        showToast("修改头像成功");
+                    }
+                    else if(result == 0) {
+                        showToast("未知错误");
+                    }
+                    else if(result == -1) {
+                        showToast("文件太大");
+                    }
+                    else if(result == -2) {
+                        showToast("没有检测到登录");
+                    }
+                    else if(result == 10) {
+                        showToast("服务器未响应");
+                    }
                 }
             }
         });
@@ -218,6 +309,7 @@ public class ReviseActivity extends AppCompatActivity {
             } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
                 Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
                 imagepath = getImagePath(uri, null);
+
             } else if ("content".equalsIgnoreCase(uri.getScheme())) {
                 imagepath = getImagePath(uri, null);
             } else if ("file".equalsIgnoreCase(uri.getScheme())) {
@@ -246,6 +338,7 @@ public class ReviseActivity extends AppCompatActivity {
         if(imagepath != null) {
             //Glide.with(this).load(imagepath).into(iv1);
             Glide.with(this).load(imagepath).into(iv_head);
+            //showToast(imagepath);
         }
         else {
             showToast("没有找到图片");
