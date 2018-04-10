@@ -88,7 +88,7 @@ public class ReviseActivity extends AppCompatActivity {
         Map<String, Object> map = new HashMap<>();
         String response = flowerHttp.post(map);
         int rsNum = 0;
-        String birthday = null, gender = null, address = null, email = null;
+        String birthday = null, gender = null, address = null, email = null, src = null, username = null;
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray(response);
@@ -97,6 +97,8 @@ public class ReviseActivity extends AppCompatActivity {
             gender = jsonObject.getString("gender");
             address = jsonObject.getString("address");
             email = jsonObject.getString("email");
+            username = jsonObject.getString("usesrname");
+            src = jsonObject.getString("src");
             jsonObject = jsonArray.getJSONObject(1);
             rsNum = jsonObject.getInt("rsNum");
         } catch (JSONException e) {
@@ -182,72 +184,6 @@ public class ReviseActivity extends AppCompatActivity {
                             String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 } else {
                     openAlbum();
-                }
-                String name = imagepath.substring(imagepath.lastIndexOf("/") + 1, imagepath.length());
-                File file = new File(Environment.getExternalStorageDirectory(), name);
-                if (!file.exists()) {
-                    showToast("文件不存在");
-                }
-                else {
-                    SharedPreferences mShared;
-                    mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
-                    String csrfmiddlewaretoken = null;
-                    String cookie = null;
-                    Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
-                    for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
-                        String key = item_map.getKey();
-                        Object value = item_map.getValue();
-                        if(key.equals("Cookie")) {
-                            cookie = value.toString();
-                        }
-                        else if(key.equals("csrfmiddlewaretoken")) {
-                            csrfmiddlewaretoken = value.toString();
-                        }
-                    }
-                    MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
-                    if (file != null) {
-                        // MediaType.parse() 里面是上传的文件类型。
-                        RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
-                        String filename = file.getName();
-                        // 参数分别为， 请求key ，文件名称 ， RequestBody
-                        requestBody.addFormDataPart("image", filename, body);
-                    }
-                    requestBody.addFormDataPart("csrfmiddlewaretoken",csrfmiddlewaretoken);
-                    Request request = new Request.Builder()
-                            .url("http://118.25.40.220/api/changeHeadImage/")
-                            .header("Cookie", cookie)
-                            .post(requestBody.build()).build();
-                    // readTimeout("请求超时时间" , 时间单位);
-                    OkHttpClient okHttpClient = new OkHttpClient();
-                    Response response = null;
-                    String responseData = null;
-                    try {
-                        response = okHttpClient.newBuilder().readTimeout(5000, TimeUnit.MILLISECONDS).build().newCall(request).execute();
-                        responseData = response.body().string();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    int result = 10;
-                    try {
-                        result = new JSONObject(responseData).getInt("rsNum");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if(result == 1) {
-                        showToast("修改头像成功");
-                    }
-                    else if(result == 0) {
-                        showToast("未知错误");
-                    }
-                    else if(result == -1) {
-                        showToast("文件太大");
-                    }
-                    else if(result == -2) {
-                        showToast("没有检测到登录");
-                    }
-                    else if(result == 10) {
-                        showToast("服务器未响应");
-                    }
                 }
             }
         });
@@ -338,6 +274,72 @@ public class ReviseActivity extends AppCompatActivity {
         if(imagepath != null) {
             //Glide.with(this).load(imagepath).into(iv1);
             Glide.with(this).load(imagepath).into(iv_head);
+            File file = new File(imagepath);
+            if (!file.exists()) {
+                showToast("文件不存在");
+            }
+            else {
+                SharedPreferences mShared;
+                mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+                String csrfmiddlewaretoken = null;
+                String cookie = null;
+                Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
+                for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
+                    String key = item_map.getKey();
+                    Object value = item_map.getValue();
+                    if(key.equals("Cookie")) {
+                        cookie = value.toString();
+                    }
+                    else if(key.equals("csrfmiddlewaretoken")) {
+                        csrfmiddlewaretoken = value.toString();
+                    }
+                }
+                MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                if (file != null) {
+                    // MediaType.parse() 里面是上传的文件类型。
+                    RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
+                    String filename = file.getName();
+                    // 参数分别为， 请求key ，文件名称 ， RequestBody
+                    requestBody.addFormDataPart("image", filename, body);
+                }
+                requestBody.addFormDataPart("csrfmiddlewaretoken",csrfmiddlewaretoken);
+                Request request = new Request.Builder()
+                        .url("http://118.25.40.220/api/changeHeadImage/")
+                        .header("Cookie", cookie)
+                        .post(requestBody.build()).build();
+                // readTimeout("请求超时时间" , 时间单位);
+                OkHttpClient okHttpClient = new OkHttpClient();
+                Response response = null;
+                String responseData = null;
+                try {
+                    //response = okHttpClient.newBuilder().readTimeout(20000, TimeUnit.MILLISECONDS).build().newCall(request).execute();
+                    response = okHttpClient.newCall(request).execute();
+                    responseData = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int result = 10;
+                try {
+                    result = new JSONObject(responseData).getInt("rsNum");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(result == 1) {
+                    showToast("修改头像成功");
+                }
+                else if(result == 0) {
+                    showToast("未知错误");
+                }
+                else if(result == -1) {
+                    showToast("文件太大");
+                }
+                else if(result == -2) {
+                    showToast("没有检测到登录");
+                }
+                else if(result == 10) {
+                    showToast("服务器未响应");
+                }
+            }
             //showToast(imagepath);
         }
         else {
