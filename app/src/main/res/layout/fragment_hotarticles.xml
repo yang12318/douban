@@ -17,14 +17,19 @@
             android:layout_marginTop="18dp"
             android:layout_gravity="center"/>
     </android.support.v7.widget.Toolbar>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_hotarticles"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:padding="8dp"
         android:layout_height="match_parent"
-        android:fadingEdge="none"
-        >
+        android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_hotarticles"
+            android:layout_width="match_parent"
+            android:padding="8dp"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            >
+        </android.support.v7.widget.RecyclerView>
 
-    </android.support.v7.widget.RecyclerView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

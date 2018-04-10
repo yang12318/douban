@@ -59,32 +59,50 @@
                     android:id="@+id/tv_articletitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25sp"
+                    android:textSize="27sp"
                     android:text="标题"
+                    android:layout_below="@+id/toolbar_article_detail"
                     android:layout_marginLeft="12dp"
                     android:textStyle="bold"
                     android:layout_marginTop="8dp"
                     />
-                <TextView
-                    android:id="@+id/tv_articleauthor"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:text="作者"
-                    />
-                <TextView
-                    android:id="@+id/tv_articletime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="发表时间"
-                    android:ellipsize="end"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="2dp"
-                    android:textSize="12sp"
-                    />
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_articlehead"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="0"
+                        android:layout_marginLeft="12dp"
+                        android:background="@drawable/header" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_articleauthor"
+                            android:textSize="12sp"
+                            android:text="作者"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="2dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="发表时间"
+                            android:id="@+id/tv_articletime"
+                            android:textSize="12dp"
+                            android:ellipsize="end"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="10dp"
+                            android:maxLines="3"/>
+                    </LinearLayout>
+                </LinearLayout>
                 <!--<WebView
                     android:id="@+id/wv_article"
                     android:layout_width="match_parent"

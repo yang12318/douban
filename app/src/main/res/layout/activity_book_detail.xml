@@ -65,14 +65,14 @@
                 <ImageView
                     android:id="@+id/iv_book_back"
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="240dp"
                     android:background="#89d4dd"/>
 
                 <ImageView
                     android:id="@+id/iv_book_head"
                     android:layout_width="150dp"
-                    android:layout_height="170dp"
-                    android:background="@drawable/header"
+                    android:layout_height="200dp"
+                    android:background="@drawable/bookcover"
                     android:layout_centerVertical="true"
                     android:layout_centerInParent="true" />
 

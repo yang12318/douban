@@ -35,25 +35,36 @@
                 android:ellipsize="end"
                 android:textSize="13sp"
                 />
-            <TextView
-                android:id="@+id/hotArticles_Author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="4dp"
-                android:text="作者"/>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_hotarticlehead"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/header" />
+                <TextView
+                    android:id="@+id/hotArticles_Author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="作者"/>
                 <TextView
                     android:id="@+id/hotArticles_Click_Num"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="点击数"
+                    android:layout_margin="6dp"
+                    android:layout_toRightOf="@id/collectionArticles_Author"
+                    android:layout_marginTop="6dp"
                     android:textSize="10sp"
                     />
                 <TextView
@@ -61,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="点赞数"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="6dp"
                     android:textSize="10sp"
                     />
             </LinearLayout>
