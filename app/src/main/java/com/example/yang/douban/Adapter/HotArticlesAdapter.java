@@ -27,7 +27,7 @@ public class HotArticlesAdapter extends BaseQuickAdapter<Article, BaseViewHolder
         helper.setText(R.id.hotArticles_Text, Html.fromHtml(item.getText()));
         helper.setText(R.id.hotArticles_Author, item.getAuthor());
         helper.setText(R.id.hotArticles_Click_Num, item.getClick_num() + "点击");
-        helper.setText(R.id.hotArticles_Good_Num, item.getGood_num() + "赞同");
+        //helper.setText(R.id.hotArticles_Good_Num, item.getGood_num() + "赞同");
         Glide.with(mContext).load(item.getSrc()).into((ImageView) helper.getView(R.id.iv_hotarticlehead));
     }
 }

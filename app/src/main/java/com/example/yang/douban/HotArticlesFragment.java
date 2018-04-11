@@ -42,6 +42,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
     private RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private int page = 1;
+    private boolean flag = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
                 article.setAuthor(jsonObject.getString("author"));
                 article.setPub_time(jsonObject.getString("pub_time"));
                 article.setClick_num(jsonObject.getInt("click_num"));
-                article.setGood_num(jsonObject.getInt("like_num"));
+                //article.setGood_num(jsonObject.getInt("like_num"));
                 article.setText(jsonObject.getString("text"));
                 article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
                 mArticleList.add(article);
@@ -112,7 +113,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
     @Override
     public void onRefresh() {
         page = 1;
-        adapter.setEnableLoadMore(false);
+        adapter.setEnableLoadMore(true);    //?????????????
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -130,6 +131,12 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                if(flag) {
+                    adapter.loadMoreEnd();
+                }
+                else {
+
+                }
                 page++;
                 FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getHotText/?type=articles&page="+String.valueOf(page));
                 String response = flowerHttp.get();
