@@ -38,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         et_username = (EditText) findViewById(R.id.et_userInput);
         et_username.addTextChangedListener(new JumpTextWatcher(et_username, et_password));
         et_password.addTextChangedListener(new JumpTextWatcher(et_password, et_nickname));
+        et_nickname.addTextChangedListener(new JumpTextWatcher(et_password, et_nickname));
         iv_username = (ImageView) findViewById(R.id.iv_delUser) ;
         iv_nickname = (ImageView) findViewById(R.id.iv_delName);
         iv_password = (ImageView) findViewById(R.id.iv_delPass);
@@ -171,7 +172,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         @Override
         public void afterTextChanged(Editable s) {
-            String str = s.toString();
+            /*String str = s.toString();
             if(str.indexOf("\r") >= 0 || str.indexOf("\n") >= 0) {      //发现输入回车或换行
                 mThisView.setText(str.replace("\r", "").replace("\n", ""));
                 if(mNextView != null) {
@@ -181,6 +182,44 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         et.setSelection(et.getText().length());
                     }
                 }
+            }*/
+            String str1 =  et_username.getText().toString();
+            String str2 =  et_password.getText().toString();
+            String str3 =  et_nickname.getText().toString();
+            if(str1.indexOf("\r")  >= 0  || str1.indexOf("\n") >= 0) {      //发现输入回车或换行
+                mThisView.setText(str1.replace("\r", "").replace("\n", ""));
+                if(mNextView != null) {
+                    mNextView.requestFocus();
+                    if(mNextView instanceof EditText) {         //让光标自动移动到编辑框的文本末尾
+                        EditText et = (EditText) mNextView;
+                        et.setSelection(et.getText().length());
+                    }
+                }
+            }
+            if(str2.indexOf("\r")  >= 0  || str2.indexOf("\n") >= 0) {      //发现输入回车或换行
+                mThisView.setText(str2.replace("\r", "").replace("\n", ""));
+                if(mNextView != null) {
+                    mNextView.requestFocus();
+                    if(mNextView instanceof EditText) {         //让光标自动移动到编辑框的文本末尾
+                        EditText et = (EditText) mNextView;
+                        et.setSelection(et.getText().length());
+                    }
+                }
+            }
+            if(str1.length()>0){
+                iv_username.setVisibility(View.VISIBLE);
+            } else {
+                iv_username.setVisibility(View.INVISIBLE);
+            }
+            if(str2.length()>0){
+                iv_password.setVisibility(View.VISIBLE);
+            } else {
+                iv_password.setVisibility(View.INVISIBLE);
+            }
+            if(str3.length()>0){
+                iv_nickname.setVisibility(View.VISIBLE);
+            } else {
+                iv_nickname.setVisibility(View.INVISIBLE);
             }
         }
     }

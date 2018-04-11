@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.yang.douban.Adapter.HotBooksAdapter;
@@ -38,6 +39,7 @@ public class HotBooksFragment extends android.support.v4.app.Fragment implements
     private HotBooksAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private int page = 1;
+    private boolean flag = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
@@ -61,6 +63,7 @@ public class HotBooksFragment extends android.support.v4.app.Fragment implements
     private void initAdapter() {
         adapter = new HotBooksAdapter(R.layout.item_hot_books, mBookList);
         adapter.setOnLoadMoreListener(this, recyclerView);
+        adapter.setLoadMoreView(new CustomLoadMoreView());
         //View headView = getLayoutInflater().inflate(R.layout.top_view, (ViewGroup) mRecyclerView.getParent(), false);
         //secondAdapter.addHeaderView(headView);
         //firstAdapter.openLoadAnimation();
@@ -84,17 +87,31 @@ public class HotBooksFragment extends android.support.v4.app.Fragment implements
         try {
             jsonArray = new JSONArray(response);
             //jsonArray = new JSONObject(response).getJSONArray("");
-            for(int i = 0; i < jsonArray.length(); i++) {
-                Book book = new Book();
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                book.setAuthor(jsonObject.getString("author"));
-                book.setGood_num(jsonObject.getInt("like_num"));
-                book.setName(jsonObject.getString("name"));
-                book.setPublisher(jsonObject.getString("publisher"));
-                book.setText(jsonObject.getString("text"));
-                book.setImage("http://118.25.40.220/" + jsonObject.getString("src"));
-                book.setId(jsonObject.getInt("id"));
-                mBookList.add(book);
+            int result = 10;
+            //jsonArray = new JSONObject(response).getJSONArray("");
+            JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+            try {
+                result = jsonObject1.getInt("rsNum");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(result == 1) {
+                for(int i = 1; i < jsonArray.length(); i++) {
+                    Book book = new Book();
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    book.setAuthor(jsonObject.getString("author"));
+                    book.setGood_num(jsonObject.getInt("like_num"));
+                    book.setName(jsonObject.getString("name"));
+                    book.setPublisher(jsonObject.getString("publisher"));
+                    book.setText(jsonObject.getString("text"));
+                    book.setImage("http://118.25.40.220/" + jsonObject.getString("src"));
+                    book.setId(jsonObject.getInt("id"));
+                    mBookList.add(book);
+                }
+            }
+            else if(result == -1) {
+                adapter.loadMoreEnd();
+                flag = true;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -104,6 +121,7 @@ public class HotBooksFragment extends android.support.v4.app.Fragment implements
     @Override
     public void onRefresh() {
         page = 1;
+        flag = false;
         adapter.setEnableLoadMore(false);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -128,19 +146,36 @@ public class HotBooksFragment extends android.support.v4.app.Fragment implements
                 JSONArray jsonArray = null;
                 try {
                     jsonArray = new JSONArray(response);
+                    int result = 10;
                     //jsonArray = new JSONObject(response).getJSONArray("");
-                    for(int i = 0; i < jsonArray.length(); i++) {
-                        Book book = new Book();
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        book.setAuthor(jsonObject.getString("author"));
-                        book.setGood_num(jsonObject.getInt("like_num"));
-                        book.setName(jsonObject.getString("name"));
-                        book.setPublisher(jsonObject.getString("publisher"));
-                        book.setText(jsonObject.getString("text"));
-                        book.setImage("http://118.25.40.220/" + jsonObject.getString("src"));
-                        book.setId(jsonObject.getInt("id"));
-                        mBookList.add(book);
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+                    try {
+                        result = jsonObject1.getInt("rsNum");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                    if(result == 1) {
+                        for(int i = 1; i < jsonArray.length(); i++) {
+                            Book book = new Book();
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            book.setAuthor(jsonObject.getString("author"));
+                            book.setGood_num(jsonObject.getInt("like_num"));
+                            book.setName(jsonObject.getString("name"));
+                            book.setPublisher(jsonObject.getString("publisher"));
+                            book.setText(jsonObject.getString("text"));
+                            book.setImage("http://118.25.40.220/" + jsonObject.getString("src"));
+                            book.setId(jsonObject.getInt("id"));
+                            mBookList.add(book);
+                        }
+                    }
+                    else if(result == -1) {
+                        adapter.loadMoreEnd();
+                        flag = true;
+                        if(page > 1)
+                            page--;
+                        Toast.makeText(mContext, "已显示全部数据", Toast.LENGTH_SHORT).show();
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

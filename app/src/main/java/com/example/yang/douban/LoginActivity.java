@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         iv_user = (ImageView) findViewById(R.id.iv_delUsername);
         iv_password = (ImageView) findViewById(R.id.iv_delPassword);
         et_user.addTextChangedListener(new JumpTextWatcher(et_user, et_password));
+        et_password.addTextChangedListener(new JumpTextWatcher(et_user, et_password));
         btn_login.setOnClickListener(this);
         iv_password.setOnClickListener(this);
         iv_user.setOnClickListener(this);
@@ -152,9 +153,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         @Override
         public void afterTextChanged(Editable s) {
-            String str = s.toString();
-            if(str.indexOf("\r") >= 0 || str.indexOf("\n") >= 0) {      //发现输入回车或换行
-                mThisView.setText(str.replace("\r", "").replace("\n", ""));
+            String str1 =  et_user.getText().toString();
+            String str2 =  et_password.getText().toString();
+            if(str1.indexOf("\r")  >= 0  || str1.indexOf("\n") >= 0) {      //发现输入回车或换行
+                mThisView.setText(str1.replace("\r", "").replace("\n", ""));
                 if(mNextView != null) {
                     mNextView.requestFocus();
                     if(mNextView instanceof EditText) {         //让光标自动移动到编辑框的文本末尾
@@ -163,10 +165,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
             }
-            if(str.length()>0){
+            if(str1.length()>0){
                 iv_user.setVisibility(View.VISIBLE);
             } else {
                 iv_user.setVisibility(View.INVISIBLE);
+            }
+            if(str2.length()>0){
+                iv_password.setVisibility(View.VISIBLE);
+            } else {
+                iv_password.setVisibility(View.INVISIBLE);
             }
         }
     }

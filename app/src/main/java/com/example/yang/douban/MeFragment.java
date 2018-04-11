@@ -59,7 +59,7 @@ public class MeFragment extends android.support.v4.app.Fragment{
             jsonArray = new JSONArray(response);
             JSONObject jsonObject = jsonArray.getJSONObject(0);
             nickname = jsonObject.getString("username");
-            src = "http://118.25.40.220" + jsonObject.getString("src");
+            src = "http://118.25.40.220/" + jsonObject.getString("src");
             jsonObject = jsonArray.getJSONObject(1);
             rsNum = jsonObject.getInt("rsNum");
         } catch (JSONException e) {

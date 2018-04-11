@@ -71,7 +71,7 @@
                 <ImageView
                     android:id="@+id/iv_book_head"
                     android:layout_width="150dp"
-                    android:layout_height="200dp"
+                    android:layout_height="180dp"
                     android:layout_centerVertical="true"
                     android:layout_centerInParent="true" />
 
@@ -127,6 +127,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
                     android:textSize="14sp"
                     />
             </LinearLayout>

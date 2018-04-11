@@ -12,17 +12,15 @@ public class Article {
     private String pub_time;
     private int click_num;
     private String text;
-    private int good_num;
     private String src;
 
-    public Article(int id, int authorId, String title, String pub_time, int click_num, String text, int good_num, String src) {
+    public Article(int id, int authorId, String title, String pub_time, int click_num, String text, String src) {
         this.title = title;
         this.id = id;
         this.authorId = authorId;
         this.pub_time = pub_time;
         this.click_num = click_num;
         this.text = text;
-        this.good_num = good_num;
         this.src = src;
     }
 
@@ -76,14 +74,6 @@ public class Article {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public int getGood_num() {
-        return good_num;
-    }
-
-    public void setGood_num(int good_num) {
-        this.good_num = good_num;
     }
 
     public int getAuthorId() {

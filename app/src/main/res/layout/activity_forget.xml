@@ -99,6 +99,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="24dp"
+                android:visibility="invisible"
                 android:src="@drawable/delete" />
         </RelativeLayout>
 
@@ -130,6 +131,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="24dp"
+                android:visibility="invisible"
                 android:src="@drawable/delete" />
         </RelativeLayout>
 

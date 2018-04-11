@@ -82,6 +82,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="3dp"
+                android:visibility="invisible"
                 android:src="@drawable/delete" />
         </RelativeLayout>
 
@@ -137,6 +138,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="3dp"
+                android:visibility="invisible"
                 android:src="@drawable/delete" />
         </RelativeLayout>
         <RelativeLayout
@@ -155,6 +157,7 @@
                 android:lines="1"
                 android:padding="1dp"
                 android:text="昵称"
+                android:singleLine="true"
                 android:textSize="15sp" />
 
             <View
@@ -177,6 +180,7 @@
                 android:layout_toRightOf="@+id/view_name"
                 android:background="@drawable/shape"
                 android:ems="19"
+                android:singleLine="true"
                 android:hint="请输入昵称"
                 android:padding="1dp"
                 android:textSize="15sp" >
@@ -189,6 +193,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="3dp"
+                android:visibility="invisible"
                 android:src="@drawable/delete" />
         </RelativeLayout>
         <Button
