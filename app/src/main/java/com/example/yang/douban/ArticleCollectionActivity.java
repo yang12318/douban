@@ -117,8 +117,8 @@ public class ArticleCollectionActivity extends AppCompatActivity {
                 article.setAuthor(jsonObject.getString("author"));
                 article.setPub_time(jsonObject.getString("pub_time"));
                 article.setClick_num(jsonObject.getInt("click_num"));
-                article.setGood_num(jsonObject.getInt("good_num"));
                 article.setText(jsonObject.getString("text"));
+                article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
                 mArticleList.add(article);
             }
         } catch (JSONException e) {

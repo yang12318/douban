@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +33,7 @@ public class MeFragment extends android.support.v4.app.Fragment{
     protected Context mContext;
     private Button btn_exit;
     private ImageView iv_image_head;
-    private TextView tv_revise;
+    private TextView tv_revise, tv_nickname;
     private LinearLayout ll_collect_article, ll_collect_book, ll_good, ll_book;
 
     @Override
@@ -46,7 +47,34 @@ public class MeFragment extends android.support.v4.app.Fragment{
         ll_book = (LinearLayout) mView.findViewById(R.id.ll_book);
         ll_collect_article = (LinearLayout) mView.findViewById(R.id.ll_collect_article);
         ll_collect_book = (LinearLayout) mView.findViewById(R.id.ll_collect_book);
+        tv_nickname = (TextView) mView.findViewById(R.id.tv_nickname);
         btn_exit = (Button) mView.findViewById(R.id.exit);
+        FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getInfo/");
+        Map<String, Object> map = new HashMap<>();
+        String response = flowerHttp.post(map);
+        int rsNum = 10;
+        String src = null, nickname = null;
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(response);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            nickname = jsonObject.getString("username");
+            src = "http://118.25.40.220" + jsonObject.getString("src");
+            jsonObject = jsonArray.getJSONObject(1);
+            rsNum = jsonObject.getInt("rsNum");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(rsNum == 0) {
+            showToast("出现未知错误");
+        }
+        else if(rsNum == -1) {
+            showToast("用户不存在");
+        }
+        else if(rsNum == 1) {
+            tv_nickname.setText(nickname);
+            Glide.with(this).load(src).into(iv_image_head);
+        }
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

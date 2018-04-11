@@ -10,17 +10,19 @@ public class BookReview {
     private String text;
     private int commenterId;
     private String commenterName;
+    private String src;
 
     public BookReview() {
 
     }
 
-    public BookReview(int id, String pub_time, String text, int commenterId, String commenterName) {
+    public BookReview(int id, String pub_time, String text, int commenterId, String commenterName, String src) {
         this.id = id;
         this.pub_time = pub_time;
         this.text = text;
         this.commenterId = commenterId;
         this.commenterName = commenterName;
+        this.src = src;
     }
 
     public int getId() {
@@ -61,5 +63,13 @@ public class BookReview {
 
     public void setCommenterName(String commenterName) {
         this.commenterName = commenterName;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 }

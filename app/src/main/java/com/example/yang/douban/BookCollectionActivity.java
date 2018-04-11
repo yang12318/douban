@@ -111,7 +111,7 @@ public class BookCollectionActivity extends AppCompatActivity {
                 Book book = new Book();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 book.setAuthor(jsonObject.getString("author"));
-                book.setGood_num(jsonObject.getInt("good_num"));
+                book.setGood_num(jsonObject.getInt("like_num"));
                 book.setName(jsonObject.getString("name"));
                 book.setPublisher(jsonObject.getString("publisher"));
                 book.setText(jsonObject.getString("text"));

@@ -87,7 +87,7 @@ public class ReviseActivity extends AppCompatActivity {
         FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getInfo/");
         Map<String, Object> map = new HashMap<>();
         String response = flowerHttp.post(map);
-        int rsNum = 0;
+        int rsNum = 10;
         String birthday = null, gender = null, address = null, email = null, src = null, username = null;
         JSONArray jsonArray = null;
         try {
@@ -97,8 +97,8 @@ public class ReviseActivity extends AppCompatActivity {
             gender = jsonObject.getString("gender");
             address = jsonObject.getString("address");
             email = jsonObject.getString("email");
-            username = jsonObject.getString("usesrname");
-            src = jsonObject.getString("src");
+            username = jsonObject.getString("username");
+            src = "http://118.25.40.220" + jsonObject.getString("src");
             jsonObject = jsonArray.getJSONObject(1);
             rsNum = jsonObject.getInt("rsNum");
         } catch (JSONException e) {
@@ -115,6 +115,7 @@ public class ReviseActivity extends AppCompatActivity {
             tv_location.setText(address);
             tv_email.setText(email);
             tv_gender.setText(gender);
+            Glide.with(this).load(src).into(iv_head);
         }
         ll_revise_birth.setOnClickListener(new View.OnClickListener() {
             Calendar c = Calendar.getInstance();

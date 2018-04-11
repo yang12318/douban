@@ -13,8 +13,9 @@ public class Article {
     private int click_num;
     private String text;
     private int good_num;
+    private String src;
 
-    public Article(int id, int authorId, String title, String pub_time, int click_num, String text, int good_num) {
+    public Article(int id, int authorId, String title, String pub_time, int click_num, String text, int good_num, String src) {
         this.title = title;
         this.id = id;
         this.authorId = authorId;
@@ -22,6 +23,7 @@ public class Article {
         this.click_num = click_num;
         this.text = text;
         this.good_num = good_num;
+        this.src = src;
     }
 
     public Article() {
@@ -90,5 +92,13 @@ public class Article {
 
     public void setAuthorId(int authorId) {
         this.authorId = authorId;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 }

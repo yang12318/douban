@@ -2,6 +2,7 @@ package com.example.yang.douban;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,8 +74,10 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                //mDetailList.get(position).setTitle("更新--"+position);
-                adapter.setNewData(mArticleList);
+                Intent intent = new Intent(mContext, ArticleDetailActivity.class);
+                int id = mArticleList.get(position).getId();
+                intent.putExtra("id", id);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -98,6 +101,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
                 article.setClick_num(jsonObject.getInt("click_num"));
                 article.setGood_num(jsonObject.getInt("like_num"));
                 article.setText(jsonObject.getString("text"));
+                article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
                 mArticleList.add(article);
             }
         } catch (JSONException e) {
@@ -143,6 +147,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
                         article.setClick_num(jsonObject.getInt("click_num"));
                         article.setGood_num(jsonObject.getInt("like_num"));
                         article.setText(jsonObject.getString("text"));
+                        article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
                         mArticleList.add(article);
                     }
                 } catch (JSONException e) {

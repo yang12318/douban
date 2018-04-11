@@ -2,6 +2,7 @@ package com.example.yang.douban;
 
 import android.content.Intent;
 import android.media.Image;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,21 +37,24 @@ public class BookDetailActivity extends AppCompatActivity {
     int collected = 0, gooded = 0;
     private List<BookReview> mReviewList;
     private RecyclerView recyclerView;
-    private ImageView iv_book_head,iv_book_back;
-    private ImageButton iv_star, iv_good;
+    private ImageView iv_book_head;
+    private FloatingActionButton fb_add;
+    private ImageButton iv_star, iv_good, ib_book_back;
     private TextView tv_bookname, tv_bookauthor, tv_bookconcern, tv_summary;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
         iv_book_head = (ImageView) findViewById(R.id.iv_book_head);
-        iv_book_back = (ImageView) findViewById(R.id.iv_book_back);
+        ib_book_back = (ImageButton) findViewById(R.id.ib_book_back);
         iv_star = (ImageButton) findViewById(R.id.iv_star);
         iv_good = (ImageButton) findViewById(R.id.iv_good);
+        fb_add = (FloatingActionButton) findViewById(R.id.fb_add);
         tv_bookauthor = (TextView) findViewById(R.id.tv_bookauthor);
         tv_bookconcern = (TextView) findViewById(R.id.tv_bookconcern);
         tv_bookname = (TextView) findViewById(R.id.tv_bookname);
         tv_summary = (TextView) findViewById(R.id.tv_summary);
+        //ib_back = (ImageButton) findViewById(R.id.)
         Intent intent = getIntent();
         bookId = intent.getIntExtra("id", 0);
         showToast(String.valueOf(bookId));
@@ -69,7 +73,7 @@ public class BookDetailActivity extends AppCompatActivity {
             name = jsonObject.getString("name");
             author = jsonObject.getString("author");
             publisher = jsonObject.getString("publisher");
-            good_num = jsonObject.getInt("good_num");
+            good_num = jsonObject.getInt("like_num");
             text = jsonObject.getString("text");
             src = "http://118.25.40.220/" + jsonObject.getString("src");
             collected = jsonObject.getInt("collected");
@@ -222,6 +226,17 @@ public class BookDetailActivity extends AppCompatActivity {
                }
             }
         });
+        ib_book_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        fb_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 
     private void initView() {
@@ -252,6 +267,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 bookReview.setId(jsonObject.getInt("id"));
                 bookReview.setPub_time(jsonObject.getString("pub_time"));
                 bookReview.setText(jsonObject.getString("text"));
+                bookReview.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
                 mReviewList.add(bookReview);
             }
         } catch (JSONException e) {

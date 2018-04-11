@@ -129,7 +129,6 @@
             android:contentDescription="@null"
             android:src="@drawable/go" />
     </LinearLayout>
-    <include layout="@layout/line"/>
     <!--<LinearLayout
         android:id="@+id/ll_article"
         android:layout_width="match_parent"
