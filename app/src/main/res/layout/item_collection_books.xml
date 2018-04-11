@@ -19,7 +19,11 @@
             <ImageView
                 android:id="@+id/collcetionBooks_image"
                 android:layout_width="100dp"
+<<<<<<< HEAD
                 android:layout_height="130dp"
+=======
+                android:layout_height="135dp"
+>>>>>>> 4cee8e0e44d966349aaebaa7b7aa165189358ac5
                 android:scaleType="centerCrop" />
             <LinearLayout
                 android:layout_width="0dp"
