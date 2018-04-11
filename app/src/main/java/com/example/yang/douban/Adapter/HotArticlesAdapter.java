@@ -1,4 +1,4 @@
-package com.example.yang.douban.Adapter;
+﻿package com.example.yang.douban.Adapter;
 
 import android.text.Html;
 import android.widget.ImageView;
