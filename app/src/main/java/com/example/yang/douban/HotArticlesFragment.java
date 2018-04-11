@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.yang.douban.Adapter.HotArticlesAdapter;
@@ -69,6 +70,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
         adapter = new HotArticlesAdapter(R.layout.item_hot_articles, mArticleList);
         //firstAdapter.openLoadAnimation();
         adapter.setOnLoadMoreListener(this, recyclerView);
+        adapter.setLoadMoreView(new CustomLoadMoreView());
         //View headView = getLayoutInflater().inflate(R.layout.top_view, (ViewGroup) recyclerView.getParent(), false);
         //adapter.addHeaderView(headView);
 
@@ -91,19 +93,31 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray(response);
+            int result = 10;
             //jsonArray = new JSONObject(response).getJSONArray("");
-            for(int i = 0; i < jsonArray.length(); i++) {
-                Article article = new Article();
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                article.setId(jsonObject.getInt("id"));
-                article.setTitle(jsonObject.getString("title"));
-                article.setAuthor(jsonObject.getString("author"));
-                article.setPub_time(jsonObject.getString("pub_time"));
-                article.setClick_num(jsonObject.getInt("click_num"));
-                //article.setGood_num(jsonObject.getInt("like_num"));
-                article.setText(jsonObject.getString("text"));
-                article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
-                mArticleList.add(article);
+            JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+            try {
+                result = jsonObject1.getInt("rsNum");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(result == 1) {
+                for(int i = 1; i < jsonArray.length(); i++) {
+                    Article article = new Article();
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    article.setId(jsonObject.getInt("id"));
+                    article.setTitle(jsonObject.getString("title"));
+                    article.setAuthor(jsonObject.getString("author"));
+                    article.setPub_time(jsonObject.getString("pub_time"));
+                    article.setClick_num(jsonObject.getInt("click_num"));
+                    article.setText(jsonObject.getString("text"));
+                    article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
+                    mArticleList.add(article);
+                }
+            }
+            else if(result == -1) {
+                adapter.loadMoreEnd();
+                flag = true;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -113,7 +127,8 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
     @Override
     public void onRefresh() {
         page = 1;
-        adapter.setEnableLoadMore(true);    //?????????????
+        flag = false;
+        adapter.setEnableLoadMore(false);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -131,31 +146,40 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(flag) {
-                    adapter.loadMoreEnd();
-                }
-                else {
-
-                }
                 page++;
                 FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getHotText/?type=articles&page="+String.valueOf(page));
                 String response = flowerHttp.get();
                 JSONArray jsonArray = null;
                 try {
                     jsonArray = new JSONArray(response);
+                    int result = 10;
                     //jsonArray = new JSONObject(response).getJSONArray("");
-                    for(int i = 0; i < jsonArray.length(); i++) {
-                        Article article = new Article();
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        article.setId(jsonObject.getInt("id"));
-                        article.setTitle(jsonObject.getString("title"));
-                        article.setAuthor(jsonObject.getString("author"));
-                        article.setPub_time(jsonObject.getString("pub_time"));
-                        article.setClick_num(jsonObject.getInt("click_num"));
-                        article.setGood_num(jsonObject.getInt("like_num"));
-                        article.setText(jsonObject.getString("text"));
-                        article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
-                        mArticleList.add(article);
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+                    try {
+                        result = jsonObject1.getInt("rsNum");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if(result == 1) {
+                        for(int i = 1; i < jsonArray.length(); i++) {
+                            Article article = new Article();
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            article.setId(jsonObject.getInt("id"));
+                            article.setTitle(jsonObject.getString("title"));
+                            article.setAuthor(jsonObject.getString("author"));
+                            article.setPub_time(jsonObject.getString("pub_time"));
+                            article.setClick_num(jsonObject.getInt("click_num"));
+                            article.setText(jsonObject.getString("text"));
+                            article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
+                            mArticleList.add(article);
+                        }
+                    }
+                    else if(result == -1) {
+                        adapter.loadMoreEnd();
+                        flag = true;
+                        if(page > 1)
+                            page--;
+                        Toast.makeText(mContext, "已显示全部数据", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

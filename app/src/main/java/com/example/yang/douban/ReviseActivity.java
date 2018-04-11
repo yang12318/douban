@@ -307,6 +307,7 @@ public class ReviseActivity extends AppCompatActivity {
                 Request request = new Request.Builder()
                         .url("http://118.25.40.220/api/changeHeadImage/")
                         .header("Cookie", cookie)
+                        .header("Content-Type", "multipart/form-data")
                         .post(requestBody.build()).build();
                 // readTimeout("请求超时时间" , 时间单位);
                 OkHttpClient okHttpClient = new OkHttpClient();
