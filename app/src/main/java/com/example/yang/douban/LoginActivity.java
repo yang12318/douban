@@ -55,6 +55,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         iv_user.setOnClickListener(this);
         tv_forget.setOnClickListener(this);
         tv_register.setOnClickListener(this);
+        et_user.setText("10086@qq.com");
+        et_password.setText("123456789");
     }
 
     @Override
@@ -63,8 +65,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/login/");
             Map<String, Object> map = new HashMap<>();
             map.put("type", "email");
-            map.put("text", "10086@qq.com");
-            map.put("pwd", "123456789");
+            map.put("text", et_user.getText().toString());
+            map.put("pwd", et_password.getText().toString());
             String s = flowerHttp.firstPost(map);
             int result = 10;
             try {

@@ -117,7 +117,7 @@ public class ArticleCollectionActivity extends AppCompatActivity {
                 article.setAuthor(jsonObject.getString("author"));
                 article.setPub_time(jsonObject.getString("pub_time"));
                 article.setClick_num(jsonObject.getInt("click_num"));
-                article.setGood_num(jsonObject.getInt("good_num"));
+                article.setGood_num(jsonObject.getInt("like_num"));
                 article.setText(jsonObject.getString("text"));
                 mArticleList.add(article);
             }

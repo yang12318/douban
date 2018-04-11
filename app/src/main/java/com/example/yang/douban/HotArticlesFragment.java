@@ -2,6 +2,7 @@ package com.example.yang.douban;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,8 +74,10 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                //mDetailList.get(position).setTitle("更新--"+position);
-                adapter.setNewData(mArticleList);
+                Intent intent = new Intent(mContext, ArticleDetailActivity.class);
+                int id = mArticleList.get(position).getId();
+                intent.putExtra("id", id);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
