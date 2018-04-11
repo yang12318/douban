@@ -163,6 +163,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
             }
+            if(str.length()>0){
+                iv_user.setVisibility(View.VISIBLE);
+            } else {
+                iv_user.setVisibility(View.INVISIBLE);
+            }
         }
     }
 

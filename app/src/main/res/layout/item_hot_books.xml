@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/hotBooks_image"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="135dp"
             android:scaleType="centerCrop" />
         <LinearLayout
             android:layout_width="0dp"
@@ -29,11 +29,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/hotBooks_title"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:text="标题"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:textSize="13sp"
                 android:text="作者"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
