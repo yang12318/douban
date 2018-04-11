@@ -101,6 +101,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
                 article.setClick_num(jsonObject.getInt("click_num"));
                 article.setGood_num(jsonObject.getInt("like_num"));
                 article.setText(jsonObject.getString("text"));
+                article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
                 mArticleList.add(article);
             }
         } catch (JSONException e) {
@@ -146,6 +147,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
                         article.setClick_num(jsonObject.getInt("click_num"));
                         article.setGood_num(jsonObject.getInt("like_num"));
                         article.setText(jsonObject.getString("text"));
+                        article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
                         mArticleList.add(article);
                     }
                 } catch (JSONException e) {

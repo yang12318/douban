@@ -1,5 +1,8 @@
 package com.example.yang.douban.Adapter;
 
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.yang.douban.Bean.BookReview;
@@ -21,5 +24,6 @@ public class BookReviewAdapter extends BaseQuickAdapter<BookReview, BaseViewHold
         helper.setText(R.id.bookdetail_Name, item.getCommenterName());
         helper.setText(R.id.bookdetail_Time, item.getPub_time());
         helper.setText(R.id.bookdetail_Text, item.getText());
+        Glide.with(mContext).load(item.getSrc()).into((ImageView) helper.getView(R.id.iv_bookreviewhead));
     }
 }

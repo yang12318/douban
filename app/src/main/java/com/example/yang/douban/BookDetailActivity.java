@@ -37,7 +37,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private List<BookReview> mReviewList;
     private RecyclerView recyclerView;
     private ImageView iv_book_head,iv_book_back;
-    private ImageButton iv_star, iv_good;
+    private ImageButton iv_star, iv_good, ib_back;
     private TextView tv_bookname, tv_bookauthor, tv_bookconcern, tv_summary;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class BookDetailActivity extends AppCompatActivity {
         tv_bookconcern = (TextView) findViewById(R.id.tv_bookconcern);
         tv_bookname = (TextView) findViewById(R.id.tv_bookname);
         tv_summary = (TextView) findViewById(R.id.tv_summary);
+        //ib_back = (ImageButton) findViewById(R.id.)
         Intent intent = getIntent();
         bookId = intent.getIntExtra("id", 0);
         showToast(String.valueOf(bookId));
@@ -252,6 +253,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 bookReview.setId(jsonObject.getInt("id"));
                 bookReview.setPub_time(jsonObject.getString("pub_time"));
                 bookReview.setText(jsonObject.getString("text"));
+                bookReview.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
                 mReviewList.add(bookReview);
             }
         } catch (JSONException e) {

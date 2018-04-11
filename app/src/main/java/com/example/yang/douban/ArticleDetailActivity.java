@@ -56,7 +56,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
             author = jsonObject.getString("author");
             pub_time = jsonObject.getString("pub_time");
             click_num = jsonObject.getInt("click_num");
-            good_num = jsonObject.getInt("like_num");
+            //good_num = jsonObject.getInt("like_num");
             text = jsonObject.getString("text");
             collected = jsonObject.getInt("collected");
         } catch (JSONException e) {
