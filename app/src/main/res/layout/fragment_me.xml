@@ -13,13 +13,13 @@
         <ImageView
             android:id="@+id/iv_image_back"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="180dp"
             android:background="#89d4dd"/>
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_image_head"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
         <RelativeLayout
@@ -135,7 +135,7 @@
         android:background="@drawable/tab"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:padding="10dp">
         <ImageView
             android:layout_width="wrap_content"

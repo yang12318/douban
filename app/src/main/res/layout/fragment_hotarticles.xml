@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
     <android.support.v7.widget.Toolbar
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="40dp"
         android:layout_width="match_parent"
         android:background="@drawable/tab" >
         <TextView
@@ -13,8 +13,8 @@
             android:layout_height="wrap_content"
             android:text="热门文章"
             android:textColor="#696969"
-            android:textSize="20sp"
-            android:layout_marginTop="18dp"
+            android:textSize="18sp"
+            android:layout_marginTop="14dp"
             android:layout_gravity="center"/>
     </android.support.v7.widget.Toolbar>
     <android.support.v4.widget.SwipeRefreshLayout
@@ -25,7 +25,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_hotarticles"
             android:layout_width="match_parent"
-            android:padding="8dp"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
             android:layout_height="match_parent"
             android:fadingEdge="none"
             >
