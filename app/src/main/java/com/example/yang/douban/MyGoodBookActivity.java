@@ -114,6 +114,7 @@ public class MyGoodBookActivity extends AppCompatActivity {
                 else if(result == 1) {
                     showToast("删除成功");
                     initData();
+                    adapter.setNewData(mBookList);
                     initAdapter();
                 }
             }

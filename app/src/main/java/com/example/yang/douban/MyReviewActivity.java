@@ -105,6 +105,7 @@ public class MyReviewActivity extends AppCompatActivity {
                 else if(result == 1) {
                     showToast("删除成功");
                     initData();
+                    adapter.setNewData(mReviewList);
                     initAdapter();
                 }
             }
@@ -136,7 +137,7 @@ public class MyReviewActivity extends AppCompatActivity {
                 myReview.setBookId(jsonObject.getInt("bookId"));
                 myReview.setBookName(jsonObject.getString("bookName"));
                 myReview.setId(jsonObject.getInt("id"));
-                myReview.setPub_time(jsonObject.getString("pug_time"));
+                myReview.setPub_time(jsonObject.getString("pub_time"));
                 myReview.setText(jsonObject.getString("text"));
                 mReviewList.add(myReview);
             }

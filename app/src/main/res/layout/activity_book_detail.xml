@@ -1,65 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_bookdetail"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#89d4dd">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="图书详情"
+            android:layout_marginTop="16dp"
+            android:textColor="#696969"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/iv_good"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="right"
+            android:background="@null"
+            android:src="@drawable/like1" />
+        <ImageButton
+            android:id="@+id/iv_star"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="right"
+            android:background="@null"
+            android:src="@drawable/star1" />
+        <ImageButton
+            android:id="@+id/ib_book_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="13dp"
+            android:background="#00000000"
+            android:src="@drawable/back" />
+    </android.support.v7.widget.Toolbar>
     <ScrollView
         android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="bottom"
+        >
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_bookdetail"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#89d4dd">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="图书详情"
-                    android:layout_marginTop="16dp"
-                    android:textColor="#696969"
-                    android:textSize="20sp" />
-
-                <ImageButton
-                    android:id="@+id/iv_good"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="right"
-                    android:background="@null"
-                    android:src="@drawable/like1" />
-                <ImageButton
-                    android:id="@+id/iv_star"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="right"
-                    android:background="@null"
-                    android:src="@drawable/star1" />
-            </android.support.v7.widget.Toolbar>
-
-            <ImageButton
-                android:id="@+id/ib_book_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginTop="13dp"
-                android:background="#00000000"
-                android:src="@drawable/back" />
+            android:layout_height="wrap_content">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/rl_head"
-                android:layout_below="@+id/toolbar_bookdetail"
+                android:layout_alignParentTop="true"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -141,16 +144,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
-
-            <!--android.support.design.widget.FloatingActionButton
-                android:id="@+id/fb_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/add"
-                app:backgroundTint="#89d4dd"
-                app:rippleColor="#89d4dd" >
-            </android.support.design.widget.FloatingActionButton-->
         </RelativeLayout>
     </ScrollView>
-
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_gravity="bottom">
+        <EditText
+            android:id="@+id/et_send"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:scrollbars="vertical"
+            android:hint="在这里写下你的评论吧"
+            />
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="发送"
+            />
+    </LinearLayout>
+</LinearLayout>

@@ -118,6 +118,7 @@ public class ArticleCollectionActivity extends AppCompatActivity {
                 else if(result == 1) {
                     showToast("取消收藏成功");
                     initData();
+                    adapter.setNewData(mArticleList);
                     initAdapter();
                 }
             }

@@ -116,6 +116,7 @@ public class BookCollectionActivity extends AppCompatActivity {
                 else if(result == 1) {
                     showToast("取消收藏成功");
                     initData();
+                    adapter.setNewData(mBookList);
                     initAdapter();
                 }
             }

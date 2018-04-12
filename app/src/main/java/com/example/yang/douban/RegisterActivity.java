@@ -227,7 +227,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public boolean isEmail(String s) {
         if(! (s.contains(".com") && s.contains("@")))
             return false;
-        String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z_]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+        String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
         Pattern regex = Pattern.compile(check);
         Matcher matcher = regex.matcher(s);
         boolean isMatched = matcher.matches();
