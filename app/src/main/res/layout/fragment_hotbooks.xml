@@ -17,11 +17,10 @@
             android:layout_marginTop="18dp"
             android:layout_gravity="center"/>
     </android.support.v7.widget.Toolbar>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
+    <com.ajguan.library.EasyRefreshLayout
+        android:id="@+id/easylayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_hotbooks"
             android:layout_width="match_parent"
@@ -29,6 +28,6 @@
             android:layout_height="match_parent"
             android:fadingEdge="none">
         </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.ajguan.library.EasyRefreshLayout>
 
 </LinearLayout>

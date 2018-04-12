@@ -25,13 +25,18 @@
             android:layout_marginTop="18dp"
             android:layout_gravity="center"/>
     </android.support.v7.widget.Toolbar>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_my_review"
-        android:padding="10dp"
+    <com.ajguan.library.EasyRefreshLayout
+        android:id="@+id/easylayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadingEdge="none">
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_my_review"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
+    </com.ajguan.library.EasyRefreshLayout>
 
 </LinearLayout>

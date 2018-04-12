@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.ajguan.library.EasyRefreshLayout;
+import com.ajguan.library.LoadModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.yang.douban.Adapter.MyGoodBookAdapter;
 import com.example.yang.douban.Adapter.MyReviewAdapter;
@@ -28,11 +30,14 @@ public class MyReviewActivity extends AppCompatActivity {
     private List<MyReview> mReviewList;
     private RecyclerView recyclerView;
     private ImageButton ib_back;
+    private EasyRefreshLayout easyRefreshLayout;
+    private MyReviewAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_review);
         ib_back = (ImageButton) findViewById(R.id.ib_myreview_back);
+        adapter = new MyReviewAdapter(R.layout.item_my_review, mReviewList);
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,17 +46,38 @@ public class MyReviewActivity extends AppCompatActivity {
         });
         initView();
         initData();
+        adapter.setNewData(mReviewList);
         initAdapter();
     }
 
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_my_review);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        easyRefreshLayout = (EasyRefreshLayout) findViewById(R.id.easylayout);
+        easyRefreshLayout.setLoadMoreModel(LoadModel.NONE);
+        easyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+            @Override
+            public void onLoadMore() {
+
+            }
+
+            @Override
+            public void onRefreshing() {
+                initData();
+                initAdapter();
+                easyRefreshLayout.loadMoreComplete(new EasyRefreshLayout.Event() {
+                    @Override
+                    public void complete() {
+                        adapter.setNewData(mReviewList);
+                        easyRefreshLayout.refreshComplete();
+                    }
+                }, 500);
+            }
+        });
         //recyclerView.addItemDecoration();
     }
 
     private void initAdapter() {
-        final BaseQuickAdapter adapter = new MyReviewAdapter(R.layout.item_my_review, mReviewList);
         //firstAdapter.openLoadAnimation();
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
