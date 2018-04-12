@@ -208,7 +208,9 @@
         android:id="@+id/exit"
         android:layout_marginTop="30dp"
         android:textColor="#696969"
-        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:text="退出登录"/>
 </LinearLayout>
