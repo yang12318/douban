@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -20,12 +24,19 @@ public class ChangeCodeActivity extends AppCompatActivity {
 
     private EditText et_old, et_new;
     private Button btn_change;
+    private ImageButton ib_back;
+    private ImageView iv_old,iv_new;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_code);
         et_old = (EditText) findViewById(R.id.et_old);
         et_new = (EditText) findViewById(R.id.et_new);
+        et_old.addTextChangedListener(new JumpTextWatcher(et_old, et_new));
+        et_new.addTextChangedListener(new JumpTextWatcher(et_old, et_new));
+        iv_old = (ImageView) findViewById(R.id.iv_delOld) ;
+        iv_new = (ImageView) findViewById(R.id.iv_delNewPassword) ;
+        ib_back = (ImageButton)  findViewById(R.id.ib_change_back);
         btn_change = (Button) findViewById(R.id.btn_change);
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +87,72 @@ public class ChangeCodeActivity extends AppCompatActivity {
                 }
             }
         });
+        ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        iv_old.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_old.setText(null);
+            }
+        });
+        iv_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_new.setText(null);
+            }
+        });
+    }
+    private class JumpTextWatcher implements TextWatcher {
+        private EditText mThisView = null;
+        private View mNextView = null;
+
+        public JumpTextWatcher(EditText vThis, View vNext) {
+            super();
+            mThisView = vThis;
+            if(vNext != null) {
+                mNextView = vNext;
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String str1 =  et_old.getText().toString();
+            String str2 =  et_new.getText().toString();
+            if(str1.indexOf("\r")  >= 0  || str1.indexOf("\n") >= 0) {      //发现输入回车或换行
+                mThisView.setText(str1.replace("\r", "").replace("\n", ""));
+                if(mNextView != null) {
+                    mNextView.requestFocus();
+                    if(mNextView instanceof EditText) {         //让光标自动移动到编辑框的文本末尾
+                        EditText et = (EditText) mNextView;
+                        et.setSelection(et.getText().length());
+                    }
+                }
+            }
+            if(str1.length()>0){
+                iv_old.setVisibility(View.VISIBLE);
+            } else {
+                iv_old.setVisibility(View.INVISIBLE);
+            }
+            if(str2.length()>0){
+                iv_new.setVisibility(View.VISIBLE);
+            } else {
+                iv_new.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     private void showToast(String s) {

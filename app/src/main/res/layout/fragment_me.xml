@@ -13,23 +13,22 @@
         <ImageView
             android:id="@+id/iv_image_back"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:background="@drawable/headerback"/>
+            android:layout_height="180dp"
+            android:background="#89d4dd"/>
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_image_head"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/header"
-            android:layout_alignParentLeft="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerVertical="true"
-            android:layout_centerInParent="true" />
+            android:layout_centerHorizontal="true"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/iv_image_back"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:id="@+id/iv_image_line"
@@ -67,7 +66,7 @@
         android:background="@drawable/tab"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:padding="10dp">
         <ImageView
             android:layout_width="wrap_content"
@@ -107,7 +106,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/book2"/>
+            android:background="@drawable/book"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -129,41 +128,6 @@
             android:contentDescription="@null"
             android:src="@drawable/go" />
     </LinearLayout>
-    <!--<LinearLayout
-        android:id="@+id/ll_article"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tab"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/article"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="我的文章" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="0"
-            android:text="文章列表" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="5dp"
-            android:contentDescription="@null"
-            android:src="@drawable/go" />
-    </LinearLayout> -->
-    <include layout="@layout/line"/>
     <LinearLayout
         android:id="@+id/ll_book"
         android:layout_width="match_parent"
@@ -171,12 +135,12 @@
         android:background="@drawable/tab"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:padding="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/book2"/>
+            android:background="@drawable/book1"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -242,7 +206,11 @@
     <Button
         android:layout_width="match_parent"
         android:id="@+id/exit"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
+        android:textColor="#696969"
+        android:textSize="14sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:text="退出登录"/>
 </LinearLayout>

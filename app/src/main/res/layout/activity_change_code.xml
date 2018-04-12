@@ -29,12 +29,13 @@
             android:id="@+id/et_old"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="3dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/shape2"
             android:hint="请输入原密码"
-            android:lines="2"
+            android:singleLine="true"
+            android:paddingBottom="13dp"
+            android:paddingTop="13dp"
             android:textSize="15sp"
             android:textColor="#000"/>
         <ImageView
@@ -44,6 +45,7 @@
             android:layout_marginRight="24dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:visibility="invisible"
             android:src="@drawable/delete" />
     </RelativeLayout>
     <RelativeLayout
@@ -57,12 +59,13 @@
             android:id="@+id/et_new"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="3dp"
+            android:paddingBottom="13dp"
+            android:paddingTop="13dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/shape2"
             android:hint="请输入新密码"
-            android:lines="2"
+            android:singleLine="true"
             android:textSize="15sp"
             android:textColor="#000"/>
         <ImageView
@@ -72,6 +75,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="24dp"
+            android:visibility="invisible"
             android:src="@drawable/delete" />
     </RelativeLayout>
 
