@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.ajguan.library.EasyRefreshLayout;
+import com.ajguan.library.LoadModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.yang.douban.Adapter.CollectionArticlesAdapter;
 import com.example.yang.douban.Adapter.HotArticlesAdapter;
@@ -30,10 +32,13 @@ public class ArticleCollectionActivity extends AppCompatActivity {
     private List<Article> mArticleList;
     private RecyclerView recyclerView;
     private ImageButton btn_back;
+    private EasyRefreshLayout easyRefreshLayout;
+    private BaseQuickAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_collection);
+        adapter = new CollectionArticlesAdapter(R.layout.item_collection_articles, mArticleList);
         btn_back = (ImageButton) findViewById(R.id.ib_article_collection_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,18 +48,39 @@ public class ArticleCollectionActivity extends AppCompatActivity {
         });
         initView();
         initData();
+        adapter.setNewData(mArticleList);
         initAdapter();
     }
 
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_collection_articles);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        easyRefreshLayout = (EasyRefreshLayout) findViewById(R.id.easylayout);
+        easyRefreshLayout.setLoadMoreModel(LoadModel.NONE);
+        easyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+            @Override
+            public void onLoadMore() {
+
+            }
+
+            @Override
+            public void onRefreshing() {
+                initData();
+                initAdapter();
+                easyRefreshLayout.loadMoreComplete(new EasyRefreshLayout.Event() {
+                    @Override
+                    public void complete() {
+                        adapter.setNewData(mArticleList);
+                        easyRefreshLayout.refreshComplete();
+                    }
+                }, 500);
+            }
+        });
         //recyclerView.addItemDecoration();
     }
 
     @SuppressWarnings("unchecked")
     private void initAdapter() {
-        final BaseQuickAdapter adapter = new CollectionArticlesAdapter(R.layout.item_collection_articles, mArticleList);
         //firstAdapter.openLoadAnimation();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -92,6 +118,7 @@ public class ArticleCollectionActivity extends AppCompatActivity {
                 else if(result == 1) {
                     showToast("取消收藏成功");
                     initData();
+                    adapter.setNewData(mArticleList);
                     initAdapter();
                 }
             }

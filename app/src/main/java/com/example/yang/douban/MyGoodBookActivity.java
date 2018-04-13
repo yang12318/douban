@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.ajguan.library.EasyRefreshLayout;
+import com.ajguan.library.LoadModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.yang.douban.Adapter.MyGoodBookAdapter;
 import com.example.yang.douban.Bean.Book;
@@ -27,11 +29,14 @@ public class MyGoodBookActivity extends AppCompatActivity {
     private List<Book> mBookList;
     private RecyclerView recyclerView;
     private ImageButton ib_back;
+    private EasyRefreshLayout easyRefreshLayout;
+    private MyGoodBookAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_good_book);
         ib_back = (ImageButton) findViewById(R.id.ib_mygood_back);
+        adapter = new MyGoodBookAdapter(R.layout.item_my_good_books, mBookList);
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,18 +45,39 @@ public class MyGoodBookActivity extends AppCompatActivity {
         });
         initView();
         initData();
+        adapter.setNewData(mBookList);
         initAdapter();
     }
 
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_my_good_books);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        easyRefreshLayout = (EasyRefreshLayout) findViewById(R.id.easylayout);
+        easyRefreshLayout.setLoadMoreModel(LoadModel.NONE);
+        easyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+            @Override
+            public void onLoadMore() {
+
+            }
+
+            @Override
+            public void onRefreshing() {
+                initData();
+                initAdapter();
+                easyRefreshLayout.loadMoreComplete(new EasyRefreshLayout.Event() {
+                    @Override
+                    public void complete() {
+                        adapter.setNewData(mBookList);
+                        easyRefreshLayout.refreshComplete();
+                    }
+                }, 500);
+            }
+        });
         //recyclerView.addItemDecoration();
     }
 
     @SuppressWarnings("unchecked")
     private void initAdapter() {
-        final BaseQuickAdapter adapter = new MyGoodBookAdapter(R.layout.item_my_good_books, mBookList);
         //firstAdapter.openLoadAnimation();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -88,6 +114,7 @@ public class MyGoodBookActivity extends AppCompatActivity {
                 else if(result == 1) {
                     showToast("删除成功");
                     initData();
+                    adapter.setNewData(mBookList);
                     initAdapter();
                 }
             }

@@ -16,6 +16,7 @@ import android.widget.Adapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ajguan.library.EasyRefreshLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.yang.douban.Adapter.HotArticlesAdapter;
 import com.example.yang.douban.Adapter.HotBooksAdapter;
@@ -33,7 +34,7 @@ import java.util.List;
  * Created by youxihouzainali on 2018/4/2.
  */
 
-public class HotArticlesFragment extends android.support.v4.app.Fragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class HotArticlesFragment extends android.support.v4.app.Fragment {
 
     private static final String TAG = "HotArticlesFragment";
     protected View mView;
@@ -41,16 +42,18 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
     private List<Article> mArticleList;
     private HotArticlesAdapter adapter;
     private RecyclerView recyclerView;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private EasyRefreshLayout easyRefreshLayout;
     private int page = 1;
-    private boolean flag = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         mView = inflater.inflate(R.layout.fragment_hotarticles, container, false);
+        adapter = new HotArticlesAdapter(R.layout.item_hot_articles, mArticleList);
+        page = 1;
         initView();
         initData();
+        adapter.setNewData(mArticleList);
         initAdapter();
         return mView;
     }
@@ -59,21 +62,82 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
         recyclerView = (RecyclerView) mView.findViewById(R.id.rv_hotarticles);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         //recyclerView.addItemDecoration();
-        mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.swipeLayout);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
+        easyRefreshLayout = (EasyRefreshLayout) mView.findViewById(R.id.easylayout);
+        easyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+            @Override
+            public void onLoadMore() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page++;
+                        FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getHotText/?type=articles&page="+String.valueOf(page));
+                        String response = flowerHttp.get();
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONArray(response);
+                            int result = 10;
+                            //jsonArray = new JSONObject(response).getJSONArray("");
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+                            try {
+                                result = jsonObject1.getInt("rsNum");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if(result == 1) {
+                                for(int i = 1; i < jsonArray.length(); i++) {
+                                    Article article = new Article();
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    article.setId(jsonObject.getInt("id"));
+                                    article.setTitle(jsonObject.getString("title"));
+                                    article.setAuthor(jsonObject.getString("author"));
+                                    article.setPub_time(jsonObject.getString("pub_time"));
+                                    article.setClick_num(jsonObject.getInt("click_num"));
+                                    article.setText(jsonObject.getString("text"));
+                                    article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
+                                    mArticleList.add(article);
+                                }
+                                easyRefreshLayout.loadMoreComplete(new EasyRefreshLayout.Event() {
+                                    @Override
+                                    public void complete() {
+                                        adapter.setNewData(mArticleList);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }, 500);
+                            }
+                            else if(result == -1) {
+                                //adapter.loadMoreEnd();
+                                //flag = true;
+                                easyRefreshLayout.closeLoadView();
+                                if(page > 1)
+                                    page--;
+                                Toast.makeText(mContext, "已显示全部数据", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 2000);
+            }
 
+            @Override
+            public void onRefreshing() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page = 1;
+                        mArticleList.clear();
+                        initData();
+                        adapter.setNewData(mArticleList);
+                        easyRefreshLayout.refreshComplete();
+                        Toast.makeText(mContext, "refresh success", Toast.LENGTH_SHORT).show();
+                    }
+                }, 1000);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
     private void initAdapter() {
-        adapter = new HotArticlesAdapter(R.layout.item_hot_articles, mArticleList);
-        //firstAdapter.openLoadAnimation();
-        adapter.setOnLoadMoreListener(this, recyclerView);
-        adapter.setLoadMoreView(new CustomLoadMoreView());
-        //View headView = getLayoutInflater().inflate(R.layout.top_view, (ViewGroup) recyclerView.getParent(), false);
-        //adapter.addHeaderView(headView);
-
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -117,76 +181,10 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment impleme
             }
             else if(result == -1) {
                 adapter.loadMoreEnd();
-                flag = true;
+                Toast.makeText(mContext, "已加载全部数据", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onRefresh() {
-        page = 1;
-        flag = false;
-        adapter.setEnableLoadMore(false);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mArticleList.clear();
-                initData();
-                adapter.setNewData(mArticleList);
-                adapter.setEnableLoadMore(true);
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        }, 2000);
-    }
-
-    @Override
-    public void onLoadMoreRequested() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                page++;
-                FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getHotText/?type=articles&page="+String.valueOf(page));
-                String response = flowerHttp.get();
-                JSONArray jsonArray = null;
-                try {
-                    jsonArray = new JSONArray(response);
-                    int result = 10;
-                    //jsonArray = new JSONObject(response).getJSONArray("");
-                    JSONObject jsonObject1 = jsonArray.getJSONObject(0);
-                    try {
-                        result = jsonObject1.getInt("rsNum");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if(result == 1) {
-                        for(int i = 1; i < jsonArray.length(); i++) {
-                            Article article = new Article();
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            article.setId(jsonObject.getInt("id"));
-                            article.setTitle(jsonObject.getString("title"));
-                            article.setAuthor(jsonObject.getString("author"));
-                            article.setPub_time(jsonObject.getString("pub_time"));
-                            article.setClick_num(jsonObject.getInt("click_num"));
-                            article.setText(jsonObject.getString("text"));
-                            article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
-                            mArticleList.add(article);
-                        }
-                    }
-                    else if(result == -1) {
-                        adapter.loadMoreEnd();
-                        flag = true;
-                        if(page > 1)
-                            page--;
-                        Toast.makeText(mContext, "已显示全部数据", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                adapter.setNewData(mArticleList);
-                adapter.loadMoreComplete();
-            }
-        }, 2000);
     }
 }

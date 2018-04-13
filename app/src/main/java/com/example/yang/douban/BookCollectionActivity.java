@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.ajguan.library.EasyRefreshLayout;
+import com.ajguan.library.LoadModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.yang.douban.Adapter.CollectionBooksAdapter;
 import com.example.yang.douban.Adapter.HotBooksAdapter;
@@ -28,10 +30,13 @@ public class BookCollectionActivity extends AppCompatActivity {
     private List<Book> mBookList;
     private RecyclerView recyclerView;
     private ImageButton ib_back;
+    private EasyRefreshLayout easyRefreshLayout;
+    private CollectionBooksAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_collection);
+        adapter = new CollectionBooksAdapter(R.layout.item_collection_books, mBookList);
         ib_back = (ImageButton) findViewById(R.id.ib_book_collection_back);
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,17 +46,38 @@ public class BookCollectionActivity extends AppCompatActivity {
         });
         initView();
         initData();
+        adapter.setNewData(mBookList);
         initAdapter();
     }
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_book_collection);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.addItemDecoration();
+        easyRefreshLayout = (EasyRefreshLayout) findViewById(R.id.easylayout);
+        easyRefreshLayout.setLoadMoreModel(LoadModel.NONE);
+        easyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+            @Override
+            public void onLoadMore() {
+
+            }
+
+            @Override
+            public void onRefreshing() {
+                initData();
+                initAdapter();
+                easyRefreshLayout.loadMoreComplete(new EasyRefreshLayout.Event() {
+                    @Override
+                    public void complete() {
+                        adapter.setNewData(mBookList);
+                        easyRefreshLayout.refreshComplete();
+                    }
+                }, 500);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
     private void initAdapter() {
-        final BaseQuickAdapter adapter = new CollectionBooksAdapter(R.layout.item_collection_books, mBookList);
         //firstAdapter.openLoadAnimation();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -90,6 +116,7 @@ public class BookCollectionActivity extends AppCompatActivity {
                 else if(result == 1) {
                     showToast("取消收藏成功");
                     initData();
+                    adapter.setNewData(mBookList);
                     initAdapter();
                 }
             }

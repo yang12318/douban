@@ -14,14 +14,13 @@
             android:text="热门文章"
             android:textColor="#696969"
             android:textSize="20sp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="13dp"
             android:layout_gravity="center"/>
     </android.support.v7.widget.Toolbar>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
+    <com.ajguan.library.EasyRefreshLayout
+        android:id="@+id/easylayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_hotarticles"
             android:layout_width="match_parent"
@@ -31,6 +30,5 @@
             android:fadingEdge="none"
             >
         </android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.ajguan.library.EasyRefreshLayout>
 </LinearLayout>

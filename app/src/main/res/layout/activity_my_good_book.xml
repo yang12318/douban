@@ -23,14 +23,18 @@
             android:textSize="20sp"
             android:layout_gravity="center"/>
     </android.support.v7.widget.Toolbar>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_my_good_books"
+    <com.ajguan.library.EasyRefreshLayout
+        android:id="@+id/easylayout"
         android:layout_width="match_parent"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp"
-        android:layout_height="match_parent"
-        android:fadingEdge="none">
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_my_good_books"
+            android:layout_width="match_parent"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:layout_height="match_parent"
+            android:fadingEdge="none">
 
-    </android.support.v7.widget.RecyclerView>
-
+        </android.support.v7.widget.RecyclerView>
+    </com.ajguan.library.EasyRefreshLayout>
 </LinearLayout>

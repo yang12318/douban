@@ -51,8 +51,7 @@
                     android:layout_height="20dp"
                     android:layout_weight="0"
                     android:layout_marginTop="3dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/header" />
+                    android:layout_marginBottom="5dp"/>
                 <TextView
                     android:id="@+id/hotArticles_Author"
                     android:layout_width="wrap_content"

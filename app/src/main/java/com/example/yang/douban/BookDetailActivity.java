@@ -1,5 +1,7 @@
 package com.example.yang.douban;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.support.design.widget.FloatingActionButton;
@@ -8,9 +10,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,9 +44,10 @@ public class BookDetailActivity extends AppCompatActivity {
     private List<BookReview> mReviewList;
     private RecyclerView recyclerView;
     private ImageView iv_book_head;
-    //private FloatingActionButton fb_add;
-    private ImageButton iv_star, iv_good, ib_book_back;
+    private ImageButton iv_star, iv_good, ib_book_back,ib_send;
     private TextView tv_bookname, tv_bookauthor, tv_bookconcern, tv_summary;
+    private LinearLayout ll_send;
+    private EditText et_send;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +56,13 @@ public class BookDetailActivity extends AppCompatActivity {
         ib_book_back = (ImageButton) findViewById(R.id.ib_book_back);
         iv_star = (ImageButton) findViewById(R.id.iv_star);
         iv_good = (ImageButton) findViewById(R.id.iv_good);
-        //fb_add = (FloatingActionButton) findViewById(R.id.fb_add);
         tv_bookauthor = (TextView) findViewById(R.id.tv_bookauthor);
         tv_bookconcern = (TextView) findViewById(R.id.tv_bookconcern);
         tv_bookname = (TextView) findViewById(R.id.tv_bookname);
         tv_summary = (TextView) findViewById(R.id.tv_summary);
-        //ib_back = (ImageButton) findViewById(R.id.)
+        ll_send = (LinearLayout) findViewById(R.id.ll_send);
+        ib_send = (ImageButton) findViewById(R.id.ib_send);
+        et_send = (EditText) findViewById(R.id.et_send);
         Intent intent = getIntent();
         bookId = intent.getIntExtra("id", 0);
         showToast(String.valueOf(bookId));
@@ -232,11 +240,46 @@ public class BookDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-        /*fb_add.setOnClickListener(new View.OnClickListener() {
+
+        ib_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String s = et_send.getText().toString();
+                if(s == null && s.length() <=0) {
+                    showToast("您还没有评论！");
+                    return;
+                }
+                else {
+                    FlowerHttp flowerHttp1 = new FlowerHttp("http://118.25.40.220/api/toComment/");
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("bookId", bookId);
+                    map.put("text", s);
+                    String response = flowerHttp1.post(map);
+                    int result = 10;
+                    try {
+                        result = new JSONObject(response).getInt("rsNum");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if(result == 1) {
+                        showToast("评论成功");
+                        initData();
+                        initAdapter();
+                        et_send.setText("");
+                        hideOneInputMethod(BookDetailActivity.this, et_send);
+                        return;
+                    }
+                    else if(result == 0){
+                        showToast("未知错误");
+                        return;
+                    }
+                    else if(result == 10) {
+                        showToast("未返回数据");
+                        return;
+                    }
+                }
             }
-        });*/
+        });
     }
 
     private void initView() {
@@ -277,5 +320,10 @@ public class BookDetailActivity extends AppCompatActivity {
 
     public void showToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void hideOneInputMethod(Activity act, View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager) act.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 }
