@@ -50,7 +50,8 @@ public class ArticleDetailActivity extends AppCompatActivity {
         FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/details/?type=article&id="+String.valueOf(articleId));
         String response = flowerHttp.get();
         int id = 0, good_num = 0, click_num = 0;
-        String title = null, author = null, pub_time = null, text = null;
+        String title = null, author = null, pub_time = null, text = null, src = null;
+
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray(response);
@@ -61,6 +62,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
             pub_time = jsonObject.getString("pub_time");
             click_num = jsonObject.getInt("click_num");
             text = jsonObject.getString("text");
+            src = "http://118.25.40.220/" + jsonObject.getString("authorSrc");
             collected = jsonObject.getInt("collected");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -69,6 +71,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         tv_author.setText(author);
         tv_time.setText(pub_time);
         wv.setText(Html.fromHtml(text));
+        Glide.with(this).load(src).into(iv);
         if(collected == 0) {
             Glide.with(ArticleDetailActivity.this).load(R.drawable.star1).into(ib_star);
         }
