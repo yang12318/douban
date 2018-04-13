@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -33,6 +34,15 @@ import java.util.Calendar;
 
 import com.bumptech.glide.Glide;
 import com.example.yang.douban.Bean.Article;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citylist.CityListSelectActivity;
+import com.lljjcoder.style.citylist.bean.CityInfoBean;
+import com.lljjcoder.style.citylist.utils.CityListLoader;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,10 +73,12 @@ public class ReviseActivity extends AppCompatActivity {
     private ImageButton ib_back;
     private String imagepath = null;
     private TextView tv_birth, tv_location, tv_email, tv_gender;
+    CityPickerView mPicker = new CityPickerView();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_revise);
+        mPicker.init(this);
         ll_revise_head = (LinearLayout) findViewById(R.id.ll_revise_head);
         ll_revise_pass = (LinearLayout) findViewById(R.id.ll_revise_pass);
         ll_revise_location = (LinearLayout) findViewById(R.id.ll_revise_location);
@@ -95,6 +107,10 @@ public class ReviseActivity extends AppCompatActivity {
             JSONObject jsonObject = jsonArray.getJSONObject(0);
             birthday = jsonObject.getString("birthday");
             gender = jsonObject.getString("gender");
+            if(gender.equals("M") || gender.equals("m"))
+                gender = "男";
+            else if(gender.equals("F") || gender.equals("f"))
+                gender = "女";
             address = jsonObject.getString("address");
             email = jsonObject.getString("email");
             username = jsonObject.getString("username");
@@ -159,7 +175,79 @@ public class ReviseActivity extends AppCompatActivity {
         ll_revise_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                CityConfig cityConfig = new CityConfig.Builder()
+                        .title("选择城市")//标题
+                        .titleTextSize(18)//标题文字大小
+                        .titleTextColor("#585858")//标题文字颜  色
+                        .titleBackgroundColor("#E9E9E9")//标题栏背景色
+                        .confirTextColor("#585858")//确认按钮文字颜色
+                        .confirmText("确定")//确认按钮文字
+                        .confirmTextSize(16)//确认按钮文字大小
+                        .cancelTextColor("#585858")//取消按钮文字颜色
+                        .cancelText("取消")//取消按钮文字
+                        .cancelTextSize(16)//取消按钮文字大小
+                        .setCityWheelType(CityConfig.WheelType.PRO_CITY)//显示类，只显示省份一级，显示省市两级还是显示省市区三级
+                        .showBackground(true)//是否显示半透明背景
+                        .visibleItemsCount(7)//显示item的数量
+                        .province("山东省")//默认显示的省份
+                        .city("青岛市")//默认显示省份下面的城市
+                        //.district("崂山区")//默认显示省市下面的区县数据
+                        .provinceCyclic(false)//省份滚轮是否可以循环滚动
+                        .cityCyclic(false)//城市滚轮是否可以循环滚动
+                        .districtCyclic(false)//区县滚轮是否循环滚动
+                        //.setCustomItemLayout(R.layout.item_city)//自定义item的布局
+                        //.setCustomItemTextViewId(R.id.item_city_name_tv)//自定义item布局里面的textViewid
+                        .drawShadows(false)//滚轮不显示模糊效果
+                        .setLineColor("#03a9f4")//中间横线的颜色
+                        .setLineHeigh(5)//中间横线的高度
+                        .setShowGAT(true)//是否显示港澳台数据，默认不显示
+                        .build();
+                mPicker.setConfig(cityConfig);
+                mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+                    @Override
+                    public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+                        String Province = null;
+                        String City = null;
+                        if (province != null) {
+                            Province = province.getName();
+                        }
+                        if (city != null) {
+                            City = city.getName();
+                        }
+                        if (district != null) {
+                        }
+                        String location = Province + "-" + City;
+                        tv_location.setText(location);
+                        FlowerHttp flowerHttp1 = new FlowerHttp("http://118.25.40.220/api/changeInfo/");
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("birthday", tv_birth.getText().toString());
+                        map.put("gender", tv_gender.getText().toString());
+                        map.put("address", location);
+                        String response = flowerHttp1.post(map);
+                        int result = 0;
+                        try {
+                            result = new JSONObject(response).getInt("rsNum");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if(result == 1) {
+                            showToast("修改成功");
+                        }
+                        else if(result == 0) {
+                            showToast("未知错误");
+                            return;
+                        }
+                        else if(result == -1) {
+                            showToast("用户不存在");
+                            return;
+                        }
+                    }
+                    @Override
+                    public void onCancel() {
+                        showToast("已取消");
+                    }
+                });
+                mPicker.showCityPicker( );
             }
         });
         ll_revise_gender.setOnClickListener(new View.OnClickListener() {
@@ -218,20 +306,16 @@ public class ReviseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
-            case CHOOSE_PHOTO:
-                if(resultCode == RESULT_OK) {
-                    //判断手机系统版本号
-                    if(Build.VERSION.SDK_INT >= 19) {
-                        handleImageOnKitKat(data);
-                    }
-                    else {
-                        handleImageBeforeKitKat(data);
-                    }
+        if(requestCode == CHOOSE_PHOTO) {
+            if(resultCode == RESULT_OK) {
+                //判断手机系统版本号
+                if(Build.VERSION.SDK_INT >= 19) {
+                    handleImageOnKitKat(data);
                 }
-                break;
-            default:
-                break;
+                else {
+                    handleImageBeforeKitKat(data);
+                }
+            }
         }
     }
     @TargetApi(19)

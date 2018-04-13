@@ -135,11 +135,6 @@ public class HotBooksFragment extends android.support.v4.app.Fragment{
 
     @SuppressWarnings("unchecked")
     private void initAdapter() {
-        //adapter.setOnLoadMoreListener(this, recyclerView);
-        //adapter.setLoadMoreView(new CustomLoadMoreView());
-        //View headView = getLayoutInflater().inflate(R.layout.top_view, (ViewGroup) mRecyclerView.getParent(), false);
-        //secondAdapter.addHeaderView(headView);
-        //firstAdapter.openLoadAnimation();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -152,12 +147,6 @@ public class HotBooksFragment extends android.support.v4.app.Fragment{
         recyclerView.setAdapter(adapter);
     }
 
-    /*private void addHeadView() {
-        View headView = getLayoutInflater().inflate(R.layout.load_view, null);  //???
-        headView.setLayoutParams(new DrawerLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        adapter.addHeaderView(headView);
-    }*/
-
     private void initData() {
         mBookList = new ArrayList<>();
         FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getHotText/?type=books&page="+String.valueOf(page));
@@ -165,9 +154,7 @@ public class HotBooksFragment extends android.support.v4.app.Fragment{
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray(response);
-            //jsonArray = new JSONObject(response).getJSONArray("");
             int result = 10;
-            //jsonArray = new JSONObject(response).getJSONArray("");
             JSONObject jsonObject1 = jsonArray.getJSONObject(0);
             try {
                 result = jsonObject1.getInt("rsNum");

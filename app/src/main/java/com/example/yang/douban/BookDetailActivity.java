@@ -1,4 +1,4 @@
-﻿package com.example.yang.douban;
+package com.example.yang.douban;
 
 import android.app.Activity;
 import android.content.Context;
@@ -245,7 +245,7 @@ public class BookDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String s = et_send.getText().toString();
-                if(s == null && s.length() <=0) {
+                if(s.equals(null) || s.length() <=0) {
                     showToast("您还没有评论！");
                     return;
                 }

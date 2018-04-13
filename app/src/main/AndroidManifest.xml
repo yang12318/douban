@@ -26,7 +26,6 @@
         <activity android:name=".LoadActivity" />
         <activity android:name=".ForgetActivity" />
         <activity android:name=".Register2Activity" />
-        <activity android:name=".APITestActivity" />
         <activity android:name=".ReviseActivity" />
         <activity android:name=".ChangeCodeActivity" />
         <activity android:name=".BookDetailActivity" />
