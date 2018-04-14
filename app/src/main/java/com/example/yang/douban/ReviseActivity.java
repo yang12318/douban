@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -363,7 +364,6 @@ public class ReviseActivity extends AppCompatActivity {
     }
     private void displayImage(){
         if(imagepath != null) {
-            Glide.with(this).load(imagepath).into(iv_head);
             final File file = new File(imagepath);
             if (!file.exists()) {
                 showToast("文件不存在");
@@ -384,11 +384,12 @@ public class ReviseActivity extends AppCompatActivity {
                     return;
                 }
                 else {
-                    final int[] result = {10};
+                    Glide.with(ReviseActivity.this).load(imagepath).into(iv_head);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
+                                int result = 10;
                                 SharedPreferences mShared;
                                 mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
                                 String csrfmiddlewaretoken = null;
@@ -420,33 +421,35 @@ public class ReviseActivity extends AppCompatActivity {
                                 OkHttpClient okHttpClient = new OkHttpClient();
                                 response = okHttpClient.newCall(request).execute();
                                 String responseData = response.body().string();
-                                result[0] = 10;
                                 try {
-                                    result[0] = new JSONObject(responseData).getInt("rsNum");
+                                    result = new JSONObject(responseData).getInt("rsNum");
+                                    Looper.prepare();
+                                    if(result == 1) {
+                                        showToast("修改头像成功");
+                                    }
+                                    else if(result == 0) {
+                                        showToast("未知错误");
+                                    }
+                                    else if(result == -1) {
+                                        showToast("文件太大");
+                                    }
+                                    else if(result == -2) {
+                                        showToast("没有检测到登录");
+                                    }
+                                    else if(result == 10) {
+                                        showToast("服务器未响应");
+                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                Log.d("ReviseActivity", "asdf"+String.valueOf(result[0]));
+                                /*
+                                Looper.loop();*/
+                                //Log.d("ReviseActivity", "asdf"+String.valueOf(result));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
                     }).start();
-                    /*if(result[0] == 1) {
-                        showToast("修改头像成功");
-                    }
-                    else if(result[0] == 0) {
-                        showToast("未知错误");
-                    }
-                    else if(result[0] == -1) {
-                        showToast("文件太大");
-                    }
-                    else if(result[0] == -2) {
-                        showToast("没有检测到登录");
-                    }
-                    else if(result[0] == 10) {
-                        showToast("服务器未响应");
-                    }*/
                 }
             } catch (IOException e) {
                 e.printStackTrace();
