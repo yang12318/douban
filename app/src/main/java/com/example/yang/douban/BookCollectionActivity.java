@@ -48,6 +48,9 @@ public class BookCollectionActivity extends AppCompatActivity {
         initData();
         adapter.setNewData(mBookList);
         initAdapter();
+        adapter.bindToRecyclerView(recyclerView);
+        adapter.setEmptyView(R.layout.emptylist);
+        adapter.setHeaderFooterEmpty(true, true);
     }
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_book_collection);

@@ -55,6 +55,9 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment {
         initData();
         adapter.setNewData(mArticleList);
         initAdapter();
+        adapter.bindToRecyclerView(recyclerView);
+        adapter.setEmptyView(R.layout.emptylist);
+        adapter.setHeaderFooterEmpty(true, true);
         return mView;
     }
 
