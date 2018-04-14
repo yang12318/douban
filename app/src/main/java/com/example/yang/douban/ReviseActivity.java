@@ -439,12 +439,10 @@ public class ReviseActivity extends AppCompatActivity {
                                     else if(result == 10) {
                                         showToast("服务器未响应");
                                     }
+                                    Looper.loop();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                /*
-                                Looper.loop();*/
-                                //Log.d("ReviseActivity", "asdf"+String.valueOf(result));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
