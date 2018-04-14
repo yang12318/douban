@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText et_user, et_password;
     private TextView tv_register, tv_forget;
     private ImageView iv_user, iv_password;
+    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_user = (EditText) findViewById(R.id.et_usernameInput);
         iv_user = (ImageView) findViewById(R.id.iv_delUsername);
         iv_password = (ImageView) findViewById(R.id.iv_delPassword);
+        checkBox = (CheckBox) findViewById(R.id.checkbox);
         et_user.addTextChangedListener(new JumpTextWatcher(et_user, et_password));
         et_password.addTextChangedListener(new JumpTextWatcher(et_user, et_password));
         btn_login.setOnClickListener(this);
@@ -104,7 +107,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         cookie = value.toString();
                     }
                 }
+                boolean flag = checkBox.isChecked();
                 SharedPreferences.Editor editor = mShared.edit();
+                editor.putBoolean("flag", flag);
+                editor.putString("Date", DateUtil.getNowDateTime("yyyyMMddHHmmss"));
                 editor.putString("csrfmiddlewaretoken", csrf);
                 editor.putString("Cookie", cookie);
                 editor.putInt("id", result);
