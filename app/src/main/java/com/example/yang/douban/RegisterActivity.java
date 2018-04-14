@@ -89,20 +89,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 showToast("您的昵称长度过长");
                 return;
             }
-            /*FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/inter");
-            Map<String, Object> map = new HashMap<>();
-            String flag = flowerHttp.firstPost(map);
-            if(Integer.parseInt(flag) == 1) {
-                showToast("该邮箱号已被注册");
-                return;
-            }
-            flowerHttp.setUrl("http://118.25.40.220/api/registe/");*/
-            FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/registe/");
+            FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/checkExist/");
             Map<String, Object> map = new HashMap<>();
             map.put("type", "email");
             map.put("text", user);
-            map.put("username", nickname);
-            map.put("pwd", password);
             String response = flowerHttp.firstPost(map);
             int result = -10;
             try {
@@ -111,27 +101,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 e.printStackTrace();
             }
             if(result == 0) {
-                showToast("昵称已存在");
-                return;
+                Intent intent = new Intent(RegisterActivity.this, Register2Activity.class);
+                intent.putExtra("user", user);
+                intent.putExtra("password", password);
+                intent.putExtra("nickname", nickname);
+                startActivity(intent);
+                //进入发送验证码页面
             }
-            else if(result == -1) {
+            else if(result == 1) {
                 showToast("该邮箱已被注册");
                 return;
             }
             else if(result == -10){
-                showToast("发生未知错误");
+                showToast("服务器未响应");
                 return;
             }
-            else {
-                showToast("注册成功");
-            }
-            /*Intent intent = new Intent(RegisterActivity.this, Register2Activity.class);
-            intent.putExtra("user", user);
-            intent.putExtra("password", password);
-            intent.putExtra("nickname", nickname);
-            startActivity(intent);
-            */
-            //进入发送验证码页面
         }
         else if(v.getId() == R.id.iv_delUser) {
             et_username.setText(null);

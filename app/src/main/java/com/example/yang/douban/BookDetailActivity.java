@@ -65,7 +65,6 @@ public class BookDetailActivity extends AppCompatActivity {
         et_send = (EditText) findViewById(R.id.et_send);
         Intent intent = getIntent();
         bookId = intent.getIntExtra("id", 0);
-        showToast(String.valueOf(bookId));
         if(bookId == 0) {
             showToast("出现错误：id=0");
         }

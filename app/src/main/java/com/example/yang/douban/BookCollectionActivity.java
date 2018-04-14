@@ -87,7 +87,6 @@ public class BookCollectionActivity extends AppCompatActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(BookCollectionActivity.this, BookDetailActivity.class);
                 int id = mBookList.get(position).getId();
-                showToast("跳之前" + String.valueOf(id));
                 intent.putExtra("id", id);
                 startActivity(intent);
             }
