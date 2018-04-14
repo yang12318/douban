@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -19,6 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,11 +31,22 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
 
 import com.bumptech.glide.Glide;
 import com.example.yang.douban.Bean.Article;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citylist.CityListSelectActivity;
+import com.lljjcoder.style.citylist.bean.CityInfoBean;
+import com.lljjcoder.style.citylist.utils.CityListLoader;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,10 +77,13 @@ public class ReviseActivity extends AppCompatActivity {
     private ImageButton ib_back;
     private String imagepath = null;
     private TextView tv_birth, tv_location, tv_email, tv_gender;
+    public static final String TAG = "ReviseActivity";
+    CityPickerView mPicker = new CityPickerView();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_revise);
+        mPicker.init(this);
         ll_revise_head = (LinearLayout) findViewById(R.id.ll_revise_head);
         ll_revise_pass = (LinearLayout) findViewById(R.id.ll_revise_pass);
         ll_revise_location = (LinearLayout) findViewById(R.id.ll_revise_location);
@@ -95,10 +112,14 @@ public class ReviseActivity extends AppCompatActivity {
             JSONObject jsonObject = jsonArray.getJSONObject(0);
             birthday = jsonObject.getString("birthday");
             gender = jsonObject.getString("gender");
+            if(gender.equals("M") || gender.equals("m"))
+                gender = "男";
+            else if(gender.equals("F") || gender.equals("f"))
+                gender = "女";
             address = jsonObject.getString("address");
             email = jsonObject.getString("email");
             username = jsonObject.getString("username");
-            src = "http://118.25.40.220" + jsonObject.getString("src");
+            src = "http://118.25.40.220/" + jsonObject.getString("src");
             jsonObject = jsonArray.getJSONObject(1);
             rsNum = jsonObject.getInt("rsNum");
         } catch (JSONException e) {
@@ -159,7 +180,81 @@ public class ReviseActivity extends AppCompatActivity {
         ll_revise_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                CityConfig cityConfig = new CityConfig.Builder()
+                        .title("选择城市")//标题
+                        .titleTextSize(18)//标题文字大小
+                        .titleTextColor("#585858")//标题文字颜  色
+                        .titleBackgroundColor("#E9E9E9")//标题栏背景色
+                        .confirTextColor("#585858")//确认按钮文字颜色
+                        .confirmText("确定")//确认按钮文字
+                        .confirmTextSize(16)//确认按钮文字大小
+                        .cancelTextColor("#585858")//取消按钮文字颜色
+                        .cancelText("取消")//取消按钮文字
+                        .cancelTextSize(16)//取消按钮文字大小
+                        .setCityWheelType(CityConfig.WheelType.PRO_CITY)//显示类，只显示省份一级，显示省市两级还是显示省市区三级
+                        .showBackground(true)//是否显示半透明背景
+                        .visibleItemsCount(7)//显示item的数量
+                        .province("山东省")//默认显示的省份
+                        .city("青岛市")//默认显示省份下面的城市
+                        //.district("崂山区")//默认显示省市下面的区县数据
+                        .provinceCyclic(false)//省份滚轮是否可以循环滚动
+                        .cityCyclic(false)//城市滚轮是否可以循环滚动
+                        .districtCyclic(false)//区县滚轮是否循环滚动
+                        //.setCustomItemLayout(R.layout.item_city)//自定义item的布局
+                        //.setCustomItemTextViewId(R.id.item_city_name_tv)//自定义item布局里面的textViewid
+                        .drawShadows(false)//滚轮不显示模糊效果
+                        .setLineColor("#03a9f4")//中间横线的颜色
+                        .setLineHeigh(5)//中间横线的高度
+                        .setShowGAT(true)//是否显示港澳台数据，默认不显示
+                        .build();
+                mPicker.setConfig(cityConfig);
+                mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+                    @Override
+                    public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+                        String Province = null;
+                        String City = null;
+                        if (province != null) {
+                            Province = province.getName();
+                        }
+                        if (city != null) {
+                            City = city.getName();
+                        }
+                        if (district != null) {
+                        }
+                        String location = Province + "-" + City;
+                        if(Province.equals(City))
+                            location = Province;
+                        tv_location.setText(location);
+                        FlowerHttp flowerHttp1 = new FlowerHttp("http://118.25.40.220/api/changeInfo/");
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("birthday", tv_birth.getText().toString());
+                        map.put("gender", tv_gender.getText().toString());
+                        map.put("address", location);
+                        String response = flowerHttp1.post(map);
+                        int result = 0;
+                        try {
+                            result = new JSONObject(response).getInt("rsNum");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if(result == 1) {
+                            showToast("修改成功");
+                        }
+                        else if(result == 0) {
+                            showToast("未知错误");
+                            return;
+                        }
+                        else if(result == -1) {
+                            showToast("用户不存在");
+                            return;
+                        }
+                    }
+                    @Override
+                    public void onCancel() {
+                        showToast("已取消");
+                    }
+                });
+                mPicker.showCityPicker( );
             }
         });
         ll_revise_gender.setOnClickListener(new View.OnClickListener() {
@@ -218,20 +313,16 @@ public class ReviseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
-            case CHOOSE_PHOTO:
-                if(resultCode == RESULT_OK) {
-                    //判断手机系统版本号
-                    if(Build.VERSION.SDK_INT >= 19) {
-                        handleImageOnKitKat(data);
-                    }
-                    else {
-                        handleImageBeforeKitKat(data);
-                    }
+        if(requestCode == CHOOSE_PHOTO) {
+            if(resultCode == RESULT_OK) {
+                //判断手机系统版本号
+                if(Build.VERSION.SDK_INT >= 19) {
+                    handleImageOnKitKat(data);
                 }
-                break;
-            default:
-                break;
+                else {
+                    handleImageBeforeKitKat(data);
+                }
+            }
         }
     }
     @TargetApi(19)
@@ -271,78 +362,96 @@ public class ReviseActivity extends AppCompatActivity {
         }
         return path;
     }
-    private void displayImage() {
+    private void displayImage(){
         if(imagepath != null) {
-            //Glide.with(this).load(imagepath).into(iv1);
-            Glide.with(this).load(imagepath).into(iv_head);
-            File file = new File(imagepath);
+            final File file = new File(imagepath);
             if (!file.exists()) {
                 showToast("文件不存在");
+                return;
             }
-            else {
-                SharedPreferences mShared;
-                mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
-                String csrfmiddlewaretoken = null;
-                String cookie = null;
-                Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
-                for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
-                    String key = item_map.getKey();
-                    Object value = item_map.getValue();
-                    if(key.equals("Cookie")) {
-                        cookie = value.toString();
-                    }
-                    else if(key.equals("csrfmiddlewaretoken")) {
-                        csrfmiddlewaretoken = value.toString();
-                    }
-                }
-                MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
-                if (file != null) {
-                    // MediaType.parse() 里面是上传的文件类型。
-                    RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
-                    String filename = file.getName();
-                    // 参数分别为， 请求key ，文件名称 ， RequestBody
-                    requestBody.addFormDataPart("image", filename, body);
-                }
-                requestBody.addFormDataPart("csrfmiddlewaretoken",csrfmiddlewaretoken);
-                Request request = new Request.Builder()
-                        .url("http://118.25.40.220/api/changeHeadImage/")
-                        .header("Cookie", cookie)
-                        .header("Content-Type", "multipart/form-data")
-                        .post(requestBody.build()).build();
-                // readTimeout("请求超时时间" , 时间单位);
-                OkHttpClient okHttpClient = new OkHttpClient();
-                Response response = null;
-                String responseData = null;
-                try {
-                    //response = okHttpClient.newBuilder().readTimeout(20000, TimeUnit.MILLISECONDS).build().newCall(request).execute();
-                    response = okHttpClient.newCall(request).execute();
-                    responseData = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                int result = 10;
-                try {
-                    result = new JSONObject(responseData).getInt("rsNum");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                if(result == 1) {
-                    showToast("修改头像成功");
-                }
-                else if(result == 0) {
-                    showToast("未知错误");
-                }
-                else if(result == -1) {
-                    showToast("文件太大");
-                }
-                else if(result == -2) {
-                    showToast("没有检测到登录");
-                }
-                else if(result == 10) {
-                    showToast("服务器未响应");
-                }
+            String endName = null;
+            int dot = file.getName().lastIndexOf('.');
+            if ((dot >-1) && (dot < (file.getName().length() - 1))) {
+                endName =  file.getName().substring(dot + 1);
             }
-            //showToast(imagepath);
+            try {
+                if(new FileInputStream(file).available() / 1024 / 1024 > 2) {
+                    showToast("文件大小超过2M，请选择低于2M的图片");
+                    return;
+                }
+                else if(!endName.equals("jpg")) {
+                    showToast("仅支持jpg类型的文件上传，您选择的文件非jpg格式");
+                    return;
+                }
+                else {
+                    Glide.with(ReviseActivity.this).load(imagepath).into(iv_head);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                int result = 10;
+                                SharedPreferences mShared;
+                                mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
+                                String csrfmiddlewaretoken = null;
+                                String cookie = null;
+                                Map<String, Object> mapParam = (Map<String, Object>) mShared.getAll();
+                                for (Map.Entry<String, Object> item_map : mapParam.entrySet()) {
+                                    String key = item_map.getKey();
+                                    Object value = item_map.getValue();
+                                    if(key.equals("Cookie")) {
+                                        cookie = value.toString();
+                                    }
+                                    else if(key.equals("csrfmiddlewaretoken")) {
+                                        csrfmiddlewaretoken = value.toString();
+                                    }
+                                }
+                                RequestBody fileBody = RequestBody.create(MediaType.parse("image/jpg"), file);
+                                String filename = file.getName();
+                                RequestBody requestBody = new MultipartBody.Builder()
+                                        .setType(MultipartBody.FORM)
+                                        .addFormDataPart("image", filename, fileBody)
+                                        .addFormDataPart("csrfmiddlewaretoken", csrfmiddlewaretoken)
+                                        .build();
+                                Request request = new Request.Builder()
+                                        .url("http://118.25.40.220/api/changeHeadImage/")
+                                        .header("Cookie", cookie)
+                                        .post(requestBody)
+                                        .build();
+                                Response response;
+                                OkHttpClient okHttpClient = new OkHttpClient();
+                                response = okHttpClient.newCall(request).execute();
+                                String responseData = response.body().string();
+                                try {
+                                    result = new JSONObject(responseData).getInt("rsNum");
+                                    Looper.prepare();
+                                    if(result == 1) {
+                                        showToast("修改头像成功");
+                                    }
+                                    else if(result == 0) {
+                                        showToast("未知错误");
+                                    }
+                                    else if(result == -1) {
+                                        showToast("文件太大");
+                                    }
+                                    else if(result == -2) {
+                                        showToast("没有检测到登录");
+                                    }
+                                    else if(result == 10) {
+                                        showToast("服务器未响应");
+                                    }
+                                    Looper.loop();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else {
             showToast("没有找到图片");

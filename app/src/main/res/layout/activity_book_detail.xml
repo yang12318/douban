@@ -116,7 +116,7 @@
                     />
                 <View
                     android:layout_width="wrap_content"
-                    android:layout_height="2px"
+                    android:layout_height="3px"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="15dp"
@@ -133,6 +133,13 @@
                     android:layout_marginRight="16dp"
                     android:textSize="14sp"
                     />
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="3px"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/line"/>
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_book_review"

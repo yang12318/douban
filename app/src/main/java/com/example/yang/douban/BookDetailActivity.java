@@ -1,4 +1,4 @@
-﻿package com.example.yang.douban;
+package com.example.yang.douban;
 
 import android.app.Activity;
 import android.content.Context;
@@ -65,7 +65,6 @@ public class BookDetailActivity extends AppCompatActivity {
         et_send = (EditText) findViewById(R.id.et_send);
         Intent intent = getIntent();
         bookId = intent.getIntExtra("id", 0);
-        showToast(String.valueOf(bookId));
         if(bookId == 0) {
             showToast("出现错误：id=0");
         }
@@ -245,7 +244,7 @@ public class BookDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String s = et_send.getText().toString();
-                if(s == null && s.length() <=0) {
+                if(s.equals(null) || s.length() <=0) {
                     showToast("您还没有评论！");
                     return;
                 }

@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import android.view.View.OnFocusChangeListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +33,46 @@ public class ChangeCodeActivity extends AppCompatActivity {
         et_old = (EditText) findViewById(R.id.et_old);
         et_new = (EditText) findViewById(R.id.et_new);
         et_old.addTextChangedListener(new JumpTextWatcher(et_old, et_new));
-        et_new.addTextChangedListener(new JumpTextWatcher(et_old, et_new));
+        et_old.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String str1 =  et_old.getText().toString();
+                if(str1.length()>0){
+                    iv_old.setVisibility(View.VISIBLE);
+                } else {
+                    iv_old.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        et_new.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String str1 =  et_new.getText().toString();
+                if(str1.length()>0){
+                    iv_new.setVisibility(View.VISIBLE);
+                } else {
+                    iv_new.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        et_old.setOnFocusChangeListener(new userOnFocusChanageListener());
+        et_new.setOnFocusChangeListener(new userOnFocusChanageListener());
         iv_old = (ImageView) findViewById(R.id.iv_delOld) ;
         iv_new = (ImageView) findViewById(R.id.iv_delNewPassword) ;
         ib_back = (ImageButton)  findViewById(R.id.ib_change_back);
@@ -106,6 +145,17 @@ public class ChangeCodeActivity extends AppCompatActivity {
             }
         });
     }
+    private class userOnFocusChanageListener implements OnFocusChangeListener {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if ((v.getId() == et_old.getId()) & (et_old.getText().length() > 0)) {
+                iv_old.setVisibility(View.VISIBLE);
+            } else iv_old.setVisibility(View.INVISIBLE);
+            if ((v.getId() == et_new.getId()) & (et_new.getText().length() > 0)) {
+                iv_new.setVisibility(View.VISIBLE);
+            } else iv_new.setVisibility(View.INVISIBLE);
+        }
+    }
     private class JumpTextWatcher implements TextWatcher {
         private EditText mThisView = null;
         private View mNextView = null;
@@ -125,15 +175,13 @@ public class ChangeCodeActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-            String str1 =  et_old.getText().toString();
-            String str2 =  et_new.getText().toString();
-            if(str1.indexOf("\r")  >= 0  || str1.indexOf("\n") >= 0) {      //发现输入回车或换行
-                mThisView.setText(str1.replace("\r", "").replace("\n", ""));
+            String str =  s.toString();
+            if(str.indexOf("\r")  >= 0  || str.indexOf("\n") >= 0) {      //发现输入回车或换行
+                mThisView.setText(str.replace("\r", "").replace("\n", ""));
                 if(mNextView != null) {
                     mNextView.requestFocus();
                     if(mNextView instanceof EditText) {         //让光标自动移动到编辑框的文本末尾
@@ -142,16 +190,7 @@ public class ChangeCodeActivity extends AppCompatActivity {
                     }
                 }
             }
-            if(str1.length()>0){
-                iv_old.setVisibility(View.VISIBLE);
-            } else {
-                iv_old.setVisibility(View.INVISIBLE);
-            }
-            if(str2.length()>0){
-                iv_new.setVisibility(View.VISIBLE);
-            } else {
-                iv_new.setVisibility(View.INVISIBLE);
-            }
+
         }
     }
 

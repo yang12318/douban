@@ -9,8 +9,6 @@
         android:id="@+id/rl_login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:gravity="center" >
 
         <FrameLayout
@@ -18,7 +16,7 @@
             android:id="@+id/fl_image"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="60dp"
             android:gravity="center">
             <ImageView
                 android:layout_width="100sp"
@@ -32,7 +30,9 @@
             android:id="@+id/rl_username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="center"
             android:layout_below="@+id/fl_image" >
 
@@ -87,6 +87,8 @@
             android:id="@+id/password_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="6dp"
             android:gravity="center"
             android:layout_below="@+id/rl_username" >
@@ -136,14 +138,41 @@
                 android:layout_marginRight="4dp"
                 android:src="@drawable/delete"
                 android:visibility="invisible" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/checkbox_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password_layout" >
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:button="@drawable/checkbox_selector"
+                android:scaleX="0.4"
+                android:scaleY="0.4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="16dp"
+                android:text="5天之内自动登录"
+                android:textSize="15sp" />
+
         </RelativeLayout>
         <Button
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_below="@id/password_layout"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/button_shape"
             android:text="登录"
             android:textColor="#ffffff" />
@@ -154,7 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/btn_login"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:text="注册豆瓣"
             android:textColor="@color/gray"
@@ -166,12 +195,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/btn_login"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:text="忘记密码"
             android:id="@+id/tv_forget"
             android:textColor="@color/gray"
             android:textSize="15sp" />
-
     </RelativeLayout>
 </RelativeLayout>

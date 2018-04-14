@@ -48,6 +48,9 @@ public class BookCollectionActivity extends AppCompatActivity {
         initData();
         adapter.setNewData(mBookList);
         initAdapter();
+        adapter.bindToRecyclerView(recyclerView);
+        adapter.setEmptyView(R.layout.emptylist);
+        adapter.setHeaderFooterEmpty(true, true);
     }
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_book_collection);
@@ -84,7 +87,6 @@ public class BookCollectionActivity extends AppCompatActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(BookCollectionActivity.this, BookDetailActivity.class);
                 int id = mBookList.get(position).getId();
-                showToast("跳之前" + String.valueOf(id));
                 intent.putExtra("id", id);
                 startActivity(intent);
             }

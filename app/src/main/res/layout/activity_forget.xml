@@ -23,14 +23,45 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="6dp"
         android:gravity="center">
+        <RelativeLayout
+            android:id="@+id/rl_email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:gravity="center">
 
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingBottom="13dp"
+                android:paddingTop="13dp"
+                android:background="@drawable/shape2"
+                android:hint="请输入邮箱"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/iv_delEmail"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="24dp"
+                android:visibility="invisible"
+                android:src="@drawable/delete" />
+        </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rl_forget_code"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="6dp"
+            android:layout_below="@+id/rl_email"
             android:gravity="center">
 
             <EditText
@@ -39,22 +70,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:paddingBottom="13dp"
+                android:paddingTop="13dp"
                 android:background="@drawable/shape2"
                 android:hint="请输入验证码"
-                android:lines="2"
-                android:padding="3dp"
+                android:singleLine="true"
                 android:textColor="#000"
                 android:textSize="15sp" />
+            <ImageView
+                android:id="@+id/iv_del_forgetcode"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toLeftOf="@+id/view_forget_code"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/delete"
+                android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/tv_forget_code"
+            <com.example.yang.douban.CountDownTimerButton
+                android:id="@+id/btn_code"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:lines="1"
-                android:padding="1dp"
+                android:background="@null"
                 android:text="获取验证码"
                 android:textColor="#89d4dd"
                 android:textSize="15sp" />
@@ -67,7 +106,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@+id/tv_forget_code"
+                android:layout_toLeftOf="@+id/btn_code"
                 android:background="#808080" />
         </RelativeLayout>
 
@@ -85,10 +124,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:paddingBottom="13dp"
+                android:paddingTop="13dp"
                 android:background="@drawable/shape2"
                 android:hint="请输入新密码"
-                android:lines="2"
-                android:padding="3dp"
+                android:singleLine="true"
                 android:textColor="#000"
                 android:textSize="15sp" />
 
@@ -103,43 +143,11 @@
                 android:src="@drawable/delete" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rl_confirm"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_newcode"
-            android:layout_marginTop="6dp"
-            android:gravity="center">
-
-            <EditText
-                android:id="@+id/et_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/shape2"
-                android:hint="请确认密码"
-                android:lines="2"
-                android:padding="3dp"
-                android:textColor="#000"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:id="@+id/iv_delNewPass"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="24dp"
-                android:visibility="invisible"
-                android:src="@drawable/delete" />
-        </RelativeLayout>
-
         <Button
-            android:id="@+id/bt_forget"
+            android:id="@+id/btn_finish"
             android:layout_width="fill_parent"
             android:layout_height="45dp"
-            android:layout_below="@id/rl_confirm"
+            android:layout_below="@id/rl_newcode"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="20dp"

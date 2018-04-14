@@ -8,11 +8,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.view.View.OnFocusChangeListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText et_user, et_password;
     private TextView tv_register, tv_forget;
     private ImageView iv_user, iv_password;
+    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +51,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_user = (EditText) findViewById(R.id.et_usernameInput);
         iv_user = (ImageView) findViewById(R.id.iv_delUsername);
         iv_password = (ImageView) findViewById(R.id.iv_delPassword);
+        checkBox = (CheckBox) findViewById(R.id.checkbox);
         et_user.addTextChangedListener(new JumpTextWatcher(et_user, et_password));
-        et_password.addTextChangedListener(new JumpTextWatcher(et_user, et_password));
+        et_user.setOnFocusChangeListener(new userOnFocusChanageListener());
+        et_password.setOnFocusChangeListener(new userOnFocusChanageListener());
         btn_login.setOnClickListener(this);
         iv_password.setOnClickListener(this);
         iv_user.setOnClickListener(this);
@@ -58,6 +62,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv_register.setOnClickListener(this);
         et_user.setText("10086@qq.com");
         et_password.setText("123456789");
+        et_user.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String str1 =  et_user.getText().toString();
+                if(str1.length()>0){
+                    iv_user.setVisibility(View.VISIBLE);
+                } else {
+                    iv_user.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        et_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String str1 =  et_password.getText().toString();
+                if(str1.length()>0){
+                    iv_password.setVisibility(View.VISIBLE);
+                } else {
+                    iv_password.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
@@ -104,7 +146,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         cookie = value.toString();
                     }
                 }
+                boolean flag = checkBox.isChecked();
                 SharedPreferences.Editor editor = mShared.edit();
+                editor.putBoolean("flag", flag);
+                editor.putString("Date", DateUtil.getNowDateTime("yyyyMMddHHmmss"));
                 editor.putString("csrfmiddlewaretoken", csrf);
                 editor.putString("Cookie", cookie);
                 editor.putInt("id", result);
@@ -128,7 +173,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             et_user.setText(null);
         }
     }
-
+    private class userOnFocusChanageListener implements OnFocusChangeListener {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if ((v.getId() == et_user.getId()) & (et_user.getText().length() > 0)) {
+                iv_user.setVisibility(View.VISIBLE);
+            } else iv_user.setVisibility(View.INVISIBLE);
+            if ((v.getId() == et_password.getId()) & (et_password.getText().length() > 0)) {
+                iv_password.setVisibility(View.VISIBLE);
+            } else iv_password.setVisibility(View.INVISIBLE);
+        }
+    }
     private class JumpTextWatcher implements TextWatcher {
         private EditText mThisView = null;
         private View mNextView = null;
@@ -153,10 +208,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         @Override
         public void afterTextChanged(Editable s) {
-            String str1 = et_user.getText().toString();
-            String str2 = et_password.getText().toString();
-            if (str1.indexOf("\r") >= 0 || str1.indexOf("\n") >= 0) {      //发现输入回车或换行
-                mThisView.setText(str1.replace("\r", "").replace("\n", ""));
+            String str= s.toString();
+            if (str.indexOf("\r") >= 0 || str.indexOf("\n") >= 0) {      //发现输入回车或换行
+                mThisView.setText(str.replace("\r", "").replace("\n", ""));
                 if (mNextView != null) {
                     mNextView.requestFocus();
                     if (mNextView instanceof EditText) {         //让光标自动移动到编辑框的文本末尾
@@ -165,32 +219,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
             }
-                if (str1.length() > 0) {
-                    iv_user.setVisibility(View.VISIBLE);
-                } else {
-                    iv_user.setVisibility(View.INVISIBLE);
-                }
-                if (str2.length() > 0) {
-                    iv_password.setVisibility(View.VISIBLE);
-                } else {
-                    iv_password.setVisibility(View.INVISIBLE);
-                }
             }
         }
 
-    /*@Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        // 如果 EditText的 焦点 改变了  则相应的 隐藏 显示 功能 按钮
-        if (!hasFocus) {
-            iv_user.setVisibility(View.INVISIBLE);
-            iv_password.setVisibility(View.INVISIBLE);
-        } else if (et_user.getText().length() > 0) {
-            iv_user.setVisibility(View.VISIBLE);
-            if (et_password.getText().length() > 0) {
-                iv_password.setVisibility(View.VISIBLE);
-            }
-        }
-    }*/
     public void showToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }

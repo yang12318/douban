@@ -20,6 +20,8 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ArticleDetailActivity extends AppCompatActivity {
 
     int articleId = 0;
@@ -27,6 +29,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
     private ImageButton ib_star, ib_back;
     private TextView tv_title, tv_author, tv_time;
     private TextView wv;
+    private CircleImageView iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +46,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
         tv_author = (TextView) findViewById(R.id.tv_articleauthor);
         tv_time = (TextView) findViewById(R.id.tv_articletime);
         wv = (TextView) findViewById(R.id.wv_article);
+        iv = (CircleImageView) findViewById(R.id.iv_articlehead);
         FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/details/?type=article&id="+String.valueOf(articleId));
         String response = flowerHttp.get();
         int id = 0, good_num = 0, click_num = 0;
-        String title = null, author = null, pub_time = null, text = null;
+        String title = null, author = null, pub_time = null, text = null, src = null;
+
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray(response);
@@ -57,6 +62,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
             pub_time = jsonObject.getString("pub_time");
             click_num = jsonObject.getInt("click_num");
             text = jsonObject.getString("text");
+            src = "http://118.25.40.220/" + jsonObject.getString("authorSrc");
             collected = jsonObject.getInt("collected");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -65,6 +71,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         tv_author.setText(author);
         tv_time.setText(pub_time);
         wv.setText(Html.fromHtml(text));
+        Glide.with(this).load(src).into(iv);
         if(collected == 0) {
             Glide.with(ArticleDetailActivity.this).load(R.drawable.star1).into(ib_star);
         }

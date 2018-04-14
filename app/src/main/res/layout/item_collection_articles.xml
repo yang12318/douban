@@ -57,7 +57,7 @@ android:orientation="vertical" >
                     android:layout_weight="0"
                     android:layout_marginTop="3dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/header" />
+                    />
                 <TextView
                     android:id="@+id/collectionArticles_Author"
                     android:layout_width="wrap_content"

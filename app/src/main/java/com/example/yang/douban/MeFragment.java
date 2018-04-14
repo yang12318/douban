@@ -37,6 +37,37 @@ public class MeFragment extends android.support.v4.app.Fragment{
     private LinearLayout ll_collect_article, ll_collect_book, ll_good, ll_book;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/getInfo/");
+        Map<String, Object> map = new HashMap<>();
+        String response = flowerHttp.post(map);
+        int rsNum = 10;
+        String src = null, nickname = null;
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(response);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            nickname = jsonObject.getString("username");
+            src = "http://118.25.40.220/" + jsonObject.getString("src");
+            jsonObject = jsonArray.getJSONObject(1);
+            rsNum = jsonObject.getInt("rsNum");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(rsNum == 0) {
+            showToast("出现未知错误");
+        }
+        else if(rsNum == -1) {
+            showToast("用户不存在");
+        }
+        else if(rsNum == 1) {
+            tv_nickname.setText(nickname);
+            Glide.with(this).load(src).into(iv_image_head);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         mView = inflater.inflate(R.layout.fragment_me, container, false);

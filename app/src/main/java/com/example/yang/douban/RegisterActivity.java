@@ -38,7 +38,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         et_username = (EditText) findViewById(R.id.et_userInput);
         et_username.addTextChangedListener(new JumpTextWatcher(et_username, et_password));
         et_password.addTextChangedListener(new JumpTextWatcher(et_password, et_nickname));
-        et_nickname.addTextChangedListener(new JumpTextWatcher(et_password, et_nickname));
+        et_username.setOnFocusChangeListener(new userOnFocusChanageListener());
+        et_password.setOnFocusChangeListener(new userOnFocusChanageListener());
+        et_nickname.setOnFocusChangeListener(new userOnFocusChanageListener());
         iv_username = (ImageView) findViewById(R.id.iv_delUser) ;
         iv_nickname = (ImageView) findViewById(R.id.iv_delName);
         iv_password = (ImageView) findViewById(R.id.iv_delPass);
@@ -48,7 +50,63 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         iv_nickname.setOnClickListener(this);
         iv_username.setOnClickListener(this);
         ib_back.setOnClickListener(this);
+        et_username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String str1 =  et_username.getText().toString();
+                if(str1.length()>0){
+                    iv_username.setVisibility(View.VISIBLE);
+                } else {
+                    iv_username.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        et_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String str1 =  et_password.getText().toString();
+                if(str1.length()>0){
+                    iv_password.setVisibility(View.VISIBLE);
+                } else {
+                    iv_password.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        et_nickname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String str1 =  et_nickname.getText().toString();
+                if(str1.length()>0){
+                    iv_nickname.setVisibility(View.VISIBLE);
+                } else {
+                    iv_nickname.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void showToast(String text) {
@@ -89,20 +147,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 showToast("您的昵称长度过长");
                 return;
             }
-            /*FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/inter");
-            Map<String, Object> map = new HashMap<>();
-            String flag = flowerHttp.firstPost(map);
-            if(Integer.parseInt(flag) == 1) {
-                showToast("该邮箱号已被注册");
-                return;
-            }
-            flowerHttp.setUrl("http://118.25.40.220/api/registe/");*/
-            FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/registe/");
+            FlowerHttp flowerHttp = new FlowerHttp("http://118.25.40.220/api/checkExist/");
             Map<String, Object> map = new HashMap<>();
             map.put("type", "email");
             map.put("text", user);
-            map.put("username", nickname);
-            map.put("pwd", password);
             String response = flowerHttp.firstPost(map);
             int result = -10;
             try {
@@ -111,27 +159,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 e.printStackTrace();
             }
             if(result == 0) {
-                showToast("昵称已存在");
-                return;
+                Intent intent = new Intent(RegisterActivity.this, Register2Activity.class);
+                intent.putExtra("user", user);
+                intent.putExtra("password", password);
+                intent.putExtra("nickname", nickname);
+                startActivity(intent);
+                //进入发送验证码页面
             }
-            else if(result == -1) {
+            else if(result == 1) {
                 showToast("该邮箱已被注册");
                 return;
             }
             else if(result == -10){
-                showToast("发生未知错误");
+                showToast("服务器未响应");
                 return;
             }
-            else {
-                showToast("注册成功");
-            }
-            /*Intent intent = new Intent(RegisterActivity.this, Register2Activity.class);
-            intent.putExtra("user", user);
-            intent.putExtra("password", password);
-            intent.putExtra("nickname", nickname);
-            startActivity(intent);
-            */
-            //进入发送验证码页面
         }
         else if(v.getId() == R.id.iv_delUser) {
             et_username.setText(null);
@@ -146,7 +188,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             finish();
         }
     }
-
+    private class userOnFocusChanageListener implements View.OnFocusChangeListener {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if ((v.getId() == et_username.getId()) & (et_username.getText().length() > 0)) {
+                iv_username.setVisibility(View.VISIBLE);
+            } else iv_username.setVisibility(View.INVISIBLE);
+            if ((v.getId() == et_password.getId()) & (et_password.getText().length() > 0)) {
+                iv_password.setVisibility(View.VISIBLE);
+            } else iv_password.setVisibility(View.INVISIBLE);
+            if ((v.getId() == et_nickname.getId()) & (et_nickname.getText().length() > 0)) {
+                iv_nickname.setVisibility(View.VISIBLE);
+            } else iv_nickname.setVisibility(View.INVISIBLE);
+        }
+    }
 
     private class JumpTextWatcher implements TextWatcher {
         private EditText mThisView = null;
@@ -172,7 +227,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         @Override
         public void afterTextChanged(Editable s) {
-            /*String str = s.toString();
+            String str = s.toString();
             if(str.indexOf("\r") >= 0 || str.indexOf("\n") >= 0) {      //发现输入回车或换行
                 mThisView.setText(str.replace("\r", "").replace("\n", ""));
                 if(mNextView != null) {
@@ -182,45 +237,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         et.setSelection(et.getText().length());
                     }
                 }
-            }*/
-            String str1 =  et_username.getText().toString();
-            String str2 =  et_password.getText().toString();
-            String str3 =  et_nickname.getText().toString();
-            if(str1.indexOf("\r")  >= 0  || str1.indexOf("\n") >= 0) {      //发现输入回车或换行
-                mThisView.setText(str1.replace("\r", "").replace("\n", ""));
-                if(mNextView != null) {
-                    mNextView.requestFocus();
-                    if(mNextView instanceof EditText) {         //让光标自动移动到编辑框的文本末尾
-                        EditText et = (EditText) mNextView;
-                        et.setSelection(et.getText().length());
-                    }
-                }
             }
-            if(str2.indexOf("\r")  >= 0  || str2.indexOf("\n") >= 0) {      //发现输入回车或换行
-                mThisView.setText(str2.replace("\r", "").replace("\n", ""));
-                if(mNextView != null) {
-                    mNextView.requestFocus();
-                    if(mNextView instanceof EditText) {         //让光标自动移动到编辑框的文本末尾
-                        EditText et = (EditText) mNextView;
-                        et.setSelection(et.getText().length());
-                    }
-                }
-            }
-            if(str1.length()>0){
-                iv_username.setVisibility(View.VISIBLE);
-            } else {
-                iv_username.setVisibility(View.INVISIBLE);
-            }
-            if(str2.length()>0){
-                iv_password.setVisibility(View.VISIBLE);
-            } else {
-                iv_password.setVisibility(View.INVISIBLE);
-            }
-            if(str3.length()>0){
-                iv_nickname.setVisibility(View.VISIBLE);
-            } else {
-                iv_nickname.setVisibility(View.INVISIBLE);
-            }
+
         }
     }
 
