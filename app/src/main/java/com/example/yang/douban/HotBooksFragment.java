@@ -129,7 +129,7 @@ public class HotBooksFragment extends android.support.v4.app.Fragment{
                         initData();
                         adapter.setNewData(mBookList);
                         easyRefreshLayout.refreshComplete();
-                        Toast.makeText(mContext, "refresh success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "刷新成功", Toast.LENGTH_SHORT).show();
                     }
                 }, 1000);
             }

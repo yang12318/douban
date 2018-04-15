@@ -12,6 +12,8 @@ import com.example.yang.douban.R;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by youxihouzainali on 2018/3/31.
  */
@@ -27,6 +29,6 @@ public class HotArticlesAdapter extends BaseQuickAdapter<Article, BaseViewHolder
         helper.setText(R.id.hotArticles_Text, Html.fromHtml(item.getText()));
         helper.setText(R.id.hotArticles_Author, item.getAuthor());
         helper.setText(R.id.hotArticles_Click_Num, item.getClick_num() + "点击");
-        Glide.with(mContext).load(item.getSrc()).into((ImageView) helper.getView(R.id.iv_hotarticlehead));
+        Glide.with(mContext).load(item.getSrc()).into((CircleImageView) helper.getView(R.id.iv_hotarticlehead));
     }
 }

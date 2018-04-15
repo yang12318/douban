@@ -121,7 +121,7 @@ public class ChangeCodeActivity extends AppCompatActivity {
                     SharedPreferences sharedPreferences;
                     sharedPreferences = getSharedPreferences("share", Context.MODE_PRIVATE);
                     sharedPreferences.edit().clear().commit();
-                    Intent intent = new Intent(ChangeCodeActivity.this, RegisterActivity.class);
+                    Intent intent = new Intent(ChangeCodeActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
             }
