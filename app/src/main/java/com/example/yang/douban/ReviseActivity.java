@@ -57,6 +57,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.MediaType;
@@ -73,7 +74,7 @@ public class ReviseActivity extends AppCompatActivity {
     public static final int CHOOSE_PHOTO = 2;
     private LinearLayout ll_revise_head, ll_revise_pass, ll_revise_birth, ll_revise_location;
     private LinearLayout ll_revise_gender;
-    private ImageView iv_head;
+    private CircleImageView iv_head;
     private ImageButton ib_back;
     private String imagepath = null;
     private TextView tv_birth, tv_location, tv_email, tv_gender;
@@ -93,7 +94,7 @@ public class ReviseActivity extends AppCompatActivity {
         tv_location = (TextView) findViewById(R.id.tv_location);
         tv_email = (TextView) findViewById(R.id.tv_email);
         tv_gender = (TextView) findViewById(R.id.tv_gender);
-        iv_head = (ImageView) findViewById(R.id.iv_head);
+        iv_head = (CircleImageView) findViewById(R.id.iv_head);
         ib_back = (ImageButton) findViewById(R.id.ib_revise_back);
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override

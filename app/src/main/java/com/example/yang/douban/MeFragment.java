@@ -23,6 +23,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by youxihouzainali on 2018/4/2.
  */
@@ -32,7 +34,7 @@ public class MeFragment extends android.support.v4.app.Fragment{
     protected View mView;
     protected Context mContext;
     private Button btn_exit;
-    private ImageView iv_image_head;
+    private CircleImageView iv_image_head;
     private TextView tv_revise, tv_nickname;
     private LinearLayout ll_collect_article, ll_collect_book, ll_good, ll_book;
 
@@ -72,7 +74,7 @@ public class MeFragment extends android.support.v4.app.Fragment{
         mContext = getActivity();
         mView = inflater.inflate(R.layout.fragment_me, container, false);
         tv_revise = (TextView) mView.findViewById(R.id.tv_text_revise);
-        iv_image_head = (ImageView) mView.findViewById(R.id.iv_image_head);
+        iv_image_head = (CircleImageView) mView.findViewById(R.id.iv_image_head);
         ll_good = (LinearLayout) mView.findViewById(R.id.ll_good);
         //ll_article = (LinearLayout) mView.findViewById(R.id.ll_article);
         ll_book = (LinearLayout) mView.findViewById(R.id.ll_book);
