@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ajguan.library.EasyRefreshLayout;
@@ -51,9 +50,6 @@ public class ArticleCollectionActivity extends AppCompatActivity {
         initData();
         adapter.setNewData(mArticleList);
         initAdapter();
-        adapter.bindToRecyclerView(recyclerView);
-        adapter.setEmptyView(R.layout.emptylist);
-        adapter.setHeaderFooterEmpty(true, true);
     }
 
     private void initView() {

@@ -3,14 +3,11 @@ package com.example.yang.douban;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -25,7 +22,6 @@ public class Register2Activity extends AppCompatActivity {
     private EditText et_code;
     private CountDownTimerButton btn_code;
     private Button btn_finish;
-    private ImageView iv_code;
     //private CheckBox checkBox;
     String user = null, password = null, nickname = null;
     @Override
@@ -35,32 +31,11 @@ public class Register2Activity extends AppCompatActivity {
         btn_code = (CountDownTimerButton) findViewById(R.id.btn_code);
         btn_finish = (Button) findViewById(R.id.btn_finish);
         ib_back = (ImageButton) findViewById(R.id.ib_register_back);
-        iv_code = (ImageView) findViewById(R.id.iv_delcode);
         et_code = (EditText) findViewById(R.id.et_code);
-        et_code.setOnFocusChangeListener(new userOnFocusChanageListener());
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
         password = intent.getStringExtra("password");
         nickname = intent.getStringExtra("nickname");
-        et_code.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String str1 =  et_code.getText().toString();
-                if(str1.length()>0){
-                    iv_code.setVisibility(View.VISIBLE);
-                } else {
-                    iv_code.setVisibility(View.INVISIBLE);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
         btn_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,14 +97,7 @@ public class Register2Activity extends AppCompatActivity {
             }
         });
     }
-    private class userOnFocusChanageListener implements View.OnFocusChangeListener {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            if ((v.getId() == et_code.getId()) & (et_code.getText().length() > 0)) {
-                iv_code.setVisibility(View.VISIBLE);
-            } else iv_code.setVisibility(View.INVISIBLE);
-        }
-    }
+
     private void showToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }

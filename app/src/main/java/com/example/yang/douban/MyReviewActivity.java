@@ -48,9 +48,6 @@ public class MyReviewActivity extends AppCompatActivity {
         initData();
         adapter.setNewData(mReviewList);
         initAdapter();
-        adapter.bindToRecyclerView(recyclerView);
-        adapter.setEmptyView(R.layout.emptylist);
-        adapter.setHeaderFooterEmpty(true, true);
     }
 
     private void initView() {

@@ -47,9 +47,6 @@ public class MyGoodBookActivity extends AppCompatActivity {
         initData();
         adapter.setNewData(mBookList);
         initAdapter();
-        adapter.bindToRecyclerView(recyclerView);
-        adapter.setEmptyView(R.layout.emptylist);
-        adapter.setHeaderFooterEmpty(true, true);
     }
 
     private void initView() {

@@ -1,4 +1,4 @@
-﻿package com.example.yang.douban;
+package com.example.yang.douban;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,7 +22,6 @@ public class StartActivity extends AppCompatActivity {
         tv_start = (TextView) findViewById(R.id.tv_start);
         String old_date = null;
         boolean flag = false;
-        int id = 0;
         SharedPreferences mShared;
         final Intent mainIntent = new Intent();
         mShared = MainApplication.getContext().getSharedPreferences("share", MODE_PRIVATE);
@@ -36,9 +35,6 @@ public class StartActivity extends AppCompatActivity {
             else if(key.equals("flag")) {
                 flag = Boolean.parseBoolean(value.toString());
             }
-            else if(key.equals("id")) {
-                id = Integer.parseInt(value.toString());
-            }
         }
         Log.d("StartActivity", "asff"+old_date);
         if(old_date == null || old_date.length() <= 0) {
@@ -46,8 +42,6 @@ public class StartActivity extends AppCompatActivity {
             mainIntent.setClass(StartActivity.this, LoginActivity.class);
         }
         else if(DateUtil.getDeltaDate(old_date) <= 5 && flag == true) {
-            MainApplication application = MainApplication.getInstance();
-            application.mInfoMap.put("id", id);
             mainIntent.setClass(StartActivity.this, MainActivity.class);
         }
         else if(DateUtil.getDeltaDate(old_date) > 5 || flag == false) {

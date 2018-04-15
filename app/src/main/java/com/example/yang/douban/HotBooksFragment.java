@@ -52,9 +52,6 @@ public class HotBooksFragment extends android.support.v4.app.Fragment{
         initData();
         adapter.setNewData(mBookList);
         initAdapter();
-        adapter.bindToRecyclerView(recyclerView);
-        adapter.setEmptyView(R.layout.emptylist);
-        adapter.setHeaderFooterEmpty(true, true);
         return mView;
     }
 
