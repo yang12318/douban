@@ -60,8 +60,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         iv_user.setOnClickListener(this);
         tv_forget.setOnClickListener(this);
         tv_register.setOnClickListener(this);
-        et_user.setText("10086@qq.com");
-        et_password.setText("123456789");
+        et_user.setText("nksyb20110105@126.com");
+        et_password.setText("password");
         et_user.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

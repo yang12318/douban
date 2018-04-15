@@ -20,6 +20,7 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         tv_start = (TextView) findViewById(R.id.tv_start);
+        int id = 0;
         String old_date = null;
         boolean flag = false;
         SharedPreferences mShared;
@@ -35,13 +36,17 @@ public class StartActivity extends AppCompatActivity {
             else if(key.equals("flag")) {
                 flag = Boolean.parseBoolean(value.toString());
             }
+            else if(key.equals("id")) {
+                id = Integer.parseInt(value.toString());
+            }
         }
-        Log.d("StartActivity", "asff"+old_date);
         if(old_date == null || old_date.length() <= 0) {
             tv_start.setText("欢迎使用！");
             mainIntent.setClass(StartActivity.this, LoginActivity.class);
         }
         else if(DateUtil.getDeltaDate(old_date) <= 5 && flag == true) {
+            MainApplication application = MainApplication.getInstance();
+            application.mInfoMap.put("id", id);
             mainIntent.setClass(StartActivity.this, MainActivity.class);
         }
         else if(DateUtil.getDeltaDate(old_date) > 5 || flag == false) {

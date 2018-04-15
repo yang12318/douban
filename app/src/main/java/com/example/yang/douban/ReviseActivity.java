@@ -116,10 +116,12 @@ public class ReviseActivity extends AppCompatActivity {
                 gender = "男";
             else if(gender.equals("F") || gender.equals("f"))
                 gender = "女";
+            else if(gender.equals("S") || gender.equals("s"))
+                gender = "保密";
             address = jsonObject.getString("address");
             email = jsonObject.getString("email");
             username = jsonObject.getString("username");
-            src = "http://118.25.40.220/" + jsonObject.getString("src");
+            src = "http://118.25.40.220/" + jsonObject.getString( "src");
             jsonObject = jsonArray.getJSONObject(1);
             rsNum = jsonObject.getInt("rsNum");
         } catch (JSONException e) {
