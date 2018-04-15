@@ -96,7 +96,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment {
                                     article.setPub_time(jsonObject.getString("pub_time"));
                                     article.setClick_num(jsonObject.getInt("click_num"));
                                     article.setText(jsonObject.getString("text"));
-                                    article.setSrc("http://118.25.40.220/"+jsonObject.getString("src"));
+                                    article.setSrc("http://118.25.40.220/"+jsonObject.getString("authorSrc"));
                                     mArticleList.add(article);
                                 }
                                 easyRefreshLayout.loadMoreComplete(new EasyRefreshLayout.Event() {
@@ -132,7 +132,7 @@ public class HotArticlesFragment extends android.support.v4.app.Fragment {
                         initData();
                         adapter.setNewData(mArticleList);
                         easyRefreshLayout.refreshComplete();
-                        Toast.makeText(mContext, "refresh success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "刷新成功", Toast.LENGTH_SHORT).show();
                     }
                 }, 1000);
             }
